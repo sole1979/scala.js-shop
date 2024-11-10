@@ -1,0 +1,29 @@
+[0m[[0m[0minfo[0m] [0m[0mFull optimizing C:\Users\solei\scalajs\okssishop-frontend\target\scala-3.3.3\okssishop-opt[0m
+[0m[[0m[0mdebug[0m] [0m[0mLinker: Compute reachability: 689055 us[0m
+[0m[[0m[0mdebug[0m] [0m[0mLinker: Assemble LinkedClasses: 16341 us[0m
+[0m[[0m[0mdebug[0m] [0m[0mLinker: Check IR: 185393 us[0m
+[0m[[0m[0mdebug[0m] [0m[0mLinker: 911744 us[0m
+[0m[[0m[0mdebug[0m] [0m[0mOptimizer: Batch mode: true[0m
+[0m[[0m[0mdebug[0m] [0m[0mOptimizer: Incremental part: 44874 us[0m
+[0m[[0m[0mdebug[0m] [0m[0mOptimizer: Elidable constructors: 642 us[0m
+[0m[[0m[0mdebug[0m] [0m[0mOptimizer: Optimizing 10573 methods.[0m
+[0m[[0m[0mdebug[0m] [0m[0mOptimizer: Optimizer part: 1062557 us[0m
+[0m[[0m[0mdebug[0m] [0m[0mOptimizer: 1113500 us[0m
+[0m[[0m[0mdebug[0m] [0m[0mRefiner: Compute reachability: 133555 us[0m
+[0m[[0m[0mdebug[0m] [0m[0mRefiner: Assemble LinkedClasses: 12009 us[0m
+[0m[[0m[0mdebug[0m] [0m[0mRefiner: 146572 us[0m
+[0m[[0m[0mdebug[0m] [0m[0mModule Splitter: Calculate Dependency Info: 684 us[0m
+[0m[[0m[0mdebug[0m] [0m[0mModule Splitter: Analyze Modules: 2990 us[0m
+[0m[[0m[0mdebug[0m] [0m[0mModule Splitter: Assemble Modules: 1469 us[0m
+[0m[[0m[0mdebug[0m] [0m[0mModule Splitter: 5445 us[0m
+[0m[[0m[0mdebug[0m] [0m[0mEmitter: Generate Classes: 624294 us[0m
+[0m[[0m[0mdebug[0m] [0m[0mEmitter: Write trees: 6653 us[0m
+[0m[[0m[0mdebug[0m] [0m[0mEmitter: Class tree cache stats: reused: 0 -- invalidated: 905[0m
+[0m[[0m[0mdebug[0m] [0m[0mEmitter: Method tree cache stats: reused: 0 -- invalidated: 5081[0m
+[0m[[0m[0mdebug[0m] [0m[0mEmitter: Pre prints: 7065[0m
+[0m[[0m[0mdebug[0m] [0m[0mName compressor: Collect property names to avoid: 2647 us[0m
+[0m[[0m[0mdebug[0m] [0m[0mName compressor: Allocate property names: 22717 us[0m
+[0m[[0m[0mdebug[0m] [0m[0mName compressor: Allocate ancestor names: 2687 us[0m
+[0m[[0m[0mdebug[0m] [0m[0mEmitter: 668822 us[0m
+[0m[[0m[0mdebug[0m] [0m[0mBasicBackend: Write result: 205539 us[0m
+[0m[[0m[0mdebug[0m] [0m[0mBasicBackend: total modules: 1; re-written: 1[0m
