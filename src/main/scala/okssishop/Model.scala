@@ -5,6 +5,31 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.JSImport
 import com.raquo.laminar.api.L.{*, given}
 
+//import upickle.default.{ReadWriter, Reader, Writer, macroW, macroR}
+import upickle.default._
+import upickle.default.{ReadWriter => RW, macroRW}
+import scala.scalajs.js.JSON
+
+//def fromJson[T: Reader](a: js.Any) = upickle.default.read[T](JSON.stringify(a))
+//def toJsonString[T: Writer](t: T) = upickle.default.write(t)
+
+case class Product(sku: String, category: String, name: String, price: BigDecimal, descr: String, srcImg: String)
+  
+//object Responses:
+object Product {
+  implicit val bigDecimalRW: ReadWriter[BigDecimal] = readwriter[String]
+    .bimap[BigDecimal](_.toString, s => BigDecimal(s))
+
+  implicit val rw: ReadWriter[Product] = macroRW
+}
+  //given Reader[Product] = macroR[Product]
+
+//end Responses
+
+//object Payloads:
+//end Payloads
+val productVar: Var[Option[Product]] = Var(None) // None, пока данные не загружены
+
 
 case class  DataItem(itemCode: String, category: String, name: String, price: Double, descr: String, srcImg: String, srcOut: String)
 //добавляем методы здесь

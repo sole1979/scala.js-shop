@@ -25,6 +25,9 @@ def renderItemPage(category: String, itemCode: String): HtmlElement =
    items.filter(_.itemCode == itemCode)
  )
 
+  productVar.set(None) 
+  HttpClient.fetchProductFuture(category, itemCode)
+
   div(
     h2("Item Page"),
     a(
@@ -36,8 +39,11 @@ def renderItemPage(category: String, itemCode: String): HtmlElement =
 
     h3(s"item: $category $itemCode"),
     //-----------------------
-    children <-- itemVar.map { listItem => 
-      listItem.map { item =>
+  //  children <-- itemVar.map { listItem => 
+  //    listItem.map { item =>
+    child <-- productVar.signal.map {
+      case None => div("Loading product data...")
+      case Some(product) =>
         div(
           display.flex,
          // width := "20%",    //flex
@@ -54,35 +60,38 @@ def renderItemPage(category: String, itemCode: String): HtmlElement =
          // href := router.absoluteUrlForPage(PageItem(item.category, item.itemCode)),//item.srcOut,
           //target := "_blank",
           img(
-            src := item.srcImg,
+           // src := item.srcImg,
+            src := product.srcImg,
             alt := "WEAR",
             width :=  "200%",
             height.auto,
             borderRadius := "10px"
           ),
           p(
-            item.name,
+            //item.name,
+            product.name,
             fontSize := "24px",
             fontWeight.bold,
             textAlign.left
           ),
           p(
-            s"Articul: ${item.itemCode}",
+            //s"Articul: ${item.itemCode}",
+            s"Articul: ${product.sku}",
             fontSize := "10px",
             color := "green",
             textAlign.left
           ),
-          p(s"Price: ${item.price}",
+          p(s"Price: ${product.price}",
             textAlign.left
           ),
           p(
-            s"About: ${item.descr}",
+            s"About: ${product.descr}",
             fontSize := "12px",
             color := "red",
             textAlign.left
           )
         )
-     }
+    // }
    }
 
 
