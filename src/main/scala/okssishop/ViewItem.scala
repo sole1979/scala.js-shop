@@ -26,7 +26,7 @@ def renderItemPage(category: String, itemCode: String): HtmlElement =
  )
 
   productVar.set(None) 
-  HttpClient.fetchProductFuture(category, itemCode)
+  HttpClient.fetchProductWithRetry(category, itemCode)
 
   div(
     h2("Item Page"),

@@ -1,19 +1,13 @@
-[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E134] Type Error: C:\Users\solei\scalajs\okssishop-frontend\src\main\scala\okssishop\ViewItem.scala:44:13 [0m[0m[0m
-[0m[[0m[31merror[0m] [0m[0m[31m44 |[0m    children <-- productVar.signal.map {[0m
-[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m    ^^^^^^^^^^^^[0m[0m
-[0m[[0m[31merror[0m] [0m[0m[31m   |[0mNone of the overloaded alternatives of [33mmethod[0m [35m<--[0m in [33mclass[0m [35mRichChildrenReceiver[0m with types[0m
-[0m[[0m[31merror[0m] [0m[0m[31m   |[0m [Collection[_$2], Component][0m
-[0m[[0m[31merror[0m] [0m[0m[31m   |[0m  (childrenSource: com.raquo.airstream.core.Source[Collection[Component]])[0m
-[0m[[0m[31merror[0m] [0m[0m[31m   |[0m    ([33mimplicit [0m[0m
-[0m[[0m[31merror[0m] [0m[0m[31m   |[0m      renderableNode: com.raquo.laminar.modifiers.RenderableNode[Component],[0m
-[0m[[0m[31merror[0m] [0m[0m[31m   |[0m      renderableSeq: com.raquo.laminar.modifiers.RenderableSeq[Collection]):[0m
-[0m[[0m[31merror[0m] [0m[0m[31m   |[0m      com.raquo.laminar.inserters.DynamicInserter[0m
-[0m[[0m[31merror[0m] [0m[0m[31m   |[0m (childrenSource:[0m
-[0m[[0m[31merror[0m] [0m[0m[31m   |[0m  com.raquo.airstream.core.Source[Seq[com.raquo.laminar.nodes.ChildNode.Base]])[0m
-[0m[[0m[31merror[0m] [0m[0m[31m   |[0m  : com.raquo.laminar.inserters.DynamicInserter[0m
-[0m[[0m[31merror[0m] [0m[0m[31m   |[0mmatch arguments (com.raquo.airstream.core.Signal[[0m
-[0m[[0m[31merror[0m] [0m[0m[31m   |[0m  com.raquo.laminar.nodes.ReactiveHtmlElement[org.scalajs.dom.HTMLDivElement]])[0m
-[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
-[0m[[0m[31merror[0m] [0m[0m[31m   |[0mwhere:    Collection is a type variable with constraint <: [_] =>> Any[0m
-[0m[[0m[31merror[0m] [0m[0m[31m   |[0m          Component  is a type variable with constraint [0m
-[0m[[0m[31merror[0m] [0m[0mone error found[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E008] Not Found Error: C:\Users\User\Documents\Project Scala.js\scala.js-shop\src\main\scala\okssishop\HttpClient.scala:65:22 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m65 |[0m        [33mif[0m (!response.ok) [33mthrow[0m [33mnew[0m [35mException[0m([31ms"HTTP Error: [0m${response.status}[31m"[0m)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m             ^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m             value ok is not a member of org.scalajs.dom.Response | Unit[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E008] Not Found Error: C:\Users\User\Documents\Project Scala.js\scala.js-shop\src\main\scala\okssishop\HttpClient.scala:65:71 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m65 |[0m        [33mif[0m (!response.ok) [33mthrow[0m [33mnew[0m [35mException[0m([31ms"HTTP Error: [0m${response.status}[31m"[0m)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                                                              ^^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m         value status is not a member of org.scalajs.dom.Response | Unit[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E008] Not Found Error: C:\Users\User\Documents\Project Scala.js\scala.js-shop\src\main\scala\okssishop\HttpClient.scala:67:17 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m67 |[0m        response.text().toFuture[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m        ^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m        value text is not a member of org.scalajs.dom.Response | Unit[0m
+[0m[[0m[31merror[0m] [0m[0mthree errors found[0m

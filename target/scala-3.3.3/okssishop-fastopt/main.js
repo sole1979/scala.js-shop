@@ -3942,6 +3942,18 @@ function $m_Lcom_raquo_waypoint_Utils$() {
   }
   return $n_Lcom_raquo_waypoint_Utils$;
 }
+function $p_Lfrontend_HttpClient$__sleepReject$1__s_concurrent_duration_FiniteDuration__sjs_js_Promise($thiz, delay) {
+  return new Promise(((resolve, reject) => {
+    var $x_2 = window;
+    var this$3 = $n(delay);
+    var this$4 = $n(this$3.s_concurrent_duration_FiniteDuration__f_unit).toMillis__J__J(this$3.s_concurrent_duration_FiniteDuration__f_length);
+    var $x_1 = $x_2.setTimeout((() => {
+      var this$2 = $n(delay);
+      return reject($ct_jl_Exception__T__(new $c_jl_Exception(), (("Timeout exception after delay " + $n(this$2.s_concurrent_duration_FiniteDuration__f_unit).toMillis__J__J(this$2.s_concurrent_duration_FiniteDuration__f_length)) + " ms")));
+    }), $m_RTLong$().org$scalajs$linker$runtime$RuntimeLong$$toDouble__I__I__D(this$4.RTLong__f_lo, this$4.RTLong__f_hi));
+    return $uI($x_1);
+  }));
+}
 /** @constructor */
 function $c_Lfrontend_HttpClient$() {
 }
@@ -3951,11 +3963,20 @@ $c_Lfrontend_HttpClient$.prototype.constructor = $c_Lfrontend_HttpClient$;
 function $h_Lfrontend_HttpClient$() {
 }
 $h_Lfrontend_HttpClient$.prototype = $c_Lfrontend_HttpClient$.prototype;
-$c_Lfrontend_HttpClient$.prototype.fetchProductFuture__T__T__V = (function(category, sku) {
+$c_Lfrontend_HttpClient$.prototype.fetchProductWithRetry__T__T__V = (function(category, sku) {
   var url = ((("http://localhost:8080/" + category) + "/") + sku);
-  var p = fetch(url);
-  var responseFuture = $m_sjs_js_Thenable$ThenableOps$().toFuture$extension__sjs_js_Thenable__s_concurrent_Future(p);
-  $n($n($n(responseFuture).flatMap__F1__s_concurrent_ExecutionContext__s_concurrent_Future(new $c_sjsr_AnonFunction1(((response) => {
+  var this$2 = new $c_s_concurrent_duration_package$DurationInt(1500);
+  var unit = $m_ju_concurrent_TimeUnit$().ju_concurrent_TimeUnit$__f_MILLISECONDS;
+  var this$ = this$2.s_concurrent_duration_package$DurationInt__f_scala$concurrent$duration$DurationInt$$n;
+  $m_s_concurrent_duration_Duration$();
+  var hi = (this$ >> 31);
+  var delay = new $c_s_concurrent_duration_FiniteDuration(new $c_RTLong(this$, hi), unit);
+  this.frontend$HttpClient$$$_$fetchWithRetry$1__O__s_concurrent_duration_FiniteDuration__I__s_concurrent_Future(url, delay, 5);
+});
+$c_Lfrontend_HttpClient$.prototype.frontend$HttpClient$$$_$fetchWithRetry$1__O__s_concurrent_duration_FiniteDuration__I__s_concurrent_Future = (function(url$1, delay$3, retriesLeft) {
+  var p = Promise.race([fetch(url$1), $p_Lfrontend_HttpClient$__sleepReject$1__s_concurrent_duration_FiniteDuration__sjs_js_Promise(this, delay$3)]);
+  var racePromise = $m_sjs_js_Thenable$ThenableOps$().toFuture$extension__sjs_js_Thenable__s_concurrent_Future(p);
+  return $n($n($n(racePromise).flatMap__F1__s_concurrent_ExecutionContext__s_concurrent_Future(new $c_sjsr_AnonFunction1(((response) => {
     if ((!$uZ(response.ok))) {
       throw $ct_jl_Exception__T__(new $c_jl_Exception(), ("HTTP Error: " + $uI(response.status)));
     }
@@ -3975,7 +3996,7 @@ $c_Lfrontend_HttpClient$.prototype.fetchProductFuture__T__T__V = (function(categ
     var this$12 = $n($m_Lfrontend_Model$package$().Lfrontend_Model$package$__f_productVar);
     var value = new $c_s_Some(product);
     $f_Lcom_raquo_airstream_state_Var__set__O__V(this$12, value);
-  })), $m_s_concurrent_ExecutionContext$().global__s_concurrent_ExecutionContextExecutor())).recover__s_PartialFunction__s_concurrent_ExecutionContext__s_concurrent_Future(new $c_Lfrontend_HttpClient$$anon$1(this), $m_s_concurrent_ExecutionContext$().global__s_concurrent_ExecutionContextExecutor());
+  })), $m_s_concurrent_ExecutionContext$().global__s_concurrent_ExecutionContextExecutor())).recoverWith__s_PartialFunction__s_concurrent_ExecutionContext__s_concurrent_Future(new $c_Lfrontend_HttpClient$$anon$2(retriesLeft, url$1, delay$3), $m_s_concurrent_ExecutionContext$().global__s_concurrent_ExecutionContextExecutor());
 });
 var $d_Lfrontend_HttpClient$ = new $TypeData().initClass($c_Lfrontend_HttpClient$, "frontend.HttpClient$", ({
   Lfrontend_HttpClient$: 1
@@ -4549,7 +4570,7 @@ $c_Lfrontend_ViewItem$package$.prototype.renderItemPage__T__T__Lcom_raquo_lamina
   var this$4 = $n($m_Lfrontend_Model$package$().Lfrontend_Model$package$__f_productVar);
   var value = $m_s_None$();
   $f_Lcom_raquo_airstream_state_Var__set__O__V(this$4, value);
-  $m_Lfrontend_HttpClient$().fetchProductFuture__T__T__V(category, itemCode);
+  $m_Lfrontend_HttpClient$().fetchProductWithRetry__T__T__V(category, itemCode);
   var $x_33 = $n($n($m_Lcom_raquo_laminar_api_package$().Lcom_raquo_laminar_api_package$__f_L).div__Lcom_raquo_laminar_tags_HtmlTag());
   var $x_32 = $m_sr_ScalaRunTime$();
   var $x_31 = $n($n($m_Lcom_raquo_laminar_api_package$().Lcom_raquo_laminar_api_package$__f_L).h2__Lcom_raquo_laminar_tags_HtmlTag());
@@ -11531,6 +11552,33 @@ function $m_s_concurrent_Promise$() {
     $n_s_concurrent_Promise$ = new $c_s_concurrent_Promise$();
   }
   return $n_s_concurrent_Promise$;
+}
+/** @constructor */
+function $c_s_concurrent_duration_package$DurationInt$() {
+}
+$c_s_concurrent_duration_package$DurationInt$.prototype = new $h_O();
+$c_s_concurrent_duration_package$DurationInt$.prototype.constructor = $c_s_concurrent_duration_package$DurationInt$;
+/** @constructor */
+function $h_s_concurrent_duration_package$DurationInt$() {
+}
+$h_s_concurrent_duration_package$DurationInt$.prototype = $c_s_concurrent_duration_package$DurationInt$.prototype;
+$c_s_concurrent_duration_package$DurationInt$.prototype.equals$extension__I__O__Z = (function(this$, x$1) {
+  if ((x$1 instanceof $c_s_concurrent_duration_package$DurationInt)) {
+    var DurationInt$1 = $n($as_s_concurrent_duration_package$DurationInt(x$1)).s_concurrent_duration_package$DurationInt__f_scala$concurrent$duration$DurationInt$$n;
+    return (this$ === DurationInt$1);
+  } else {
+    return false;
+  }
+});
+var $d_s_concurrent_duration_package$DurationInt$ = new $TypeData().initClass($c_s_concurrent_duration_package$DurationInt$, "scala.concurrent.duration.package$DurationInt$", ({
+  s_concurrent_duration_package$DurationInt$: 1
+}));
+var $n_s_concurrent_duration_package$DurationInt$;
+function $m_s_concurrent_duration_package$DurationInt$() {
+  if ((!$n_s_concurrent_duration_package$DurationInt$)) {
+    $n_s_concurrent_duration_package$DurationInt$ = new $c_s_concurrent_duration_package$DurationInt$();
+  }
+  return $n_s_concurrent_duration_package$DurationInt$;
 }
 /** @constructor */
 function $c_s_concurrent_impl_Promise$() {
@@ -19029,6 +19077,37 @@ function $m_s_concurrent_duration_Duration$() {
   }
   return $n_s_concurrent_duration_Duration$;
 }
+/** @constructor */
+function $c_s_concurrent_duration_package$DurationInt(n) {
+  this.s_concurrent_duration_package$DurationInt__f_scala$concurrent$duration$DurationInt$$n = 0;
+  this.s_concurrent_duration_package$DurationInt__f_scala$concurrent$duration$DurationInt$$n = n;
+}
+$c_s_concurrent_duration_package$DurationInt.prototype = new $h_O();
+$c_s_concurrent_duration_package$DurationInt.prototype.constructor = $c_s_concurrent_duration_package$DurationInt;
+/** @constructor */
+function $h_s_concurrent_duration_package$DurationInt() {
+}
+$h_s_concurrent_duration_package$DurationInt.prototype = $c_s_concurrent_duration_package$DurationInt.prototype;
+$c_s_concurrent_duration_package$DurationInt.prototype.hashCode__I = (function() {
+  var this$ = this.s_concurrent_duration_package$DurationInt__f_scala$concurrent$duration$DurationInt$$n;
+  return this$;
+});
+$c_s_concurrent_duration_package$DurationInt.prototype.equals__O__Z = (function(x$1) {
+  return $m_s_concurrent_duration_package$DurationInt$().equals$extension__I__O__Z(this.s_concurrent_duration_package$DurationInt__f_scala$concurrent$duration$DurationInt$$n, x$1);
+});
+function $as_s_concurrent_duration_package$DurationInt(obj) {
+  return (((obj instanceof $c_s_concurrent_duration_package$DurationInt) || (obj === null)) ? obj : $throwClassCastException(obj, "scala.concurrent.duration.package$DurationInt"));
+}
+function $isArrayOf_s_concurrent_duration_package$DurationInt(obj, depth) {
+  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.s_concurrent_duration_package$DurationInt)));
+}
+function $asArrayOf_s_concurrent_duration_package$DurationInt(obj, depth) {
+  return (($isArrayOf_s_concurrent_duration_package$DurationInt(obj, depth) || (obj === null)) ? obj : $throwArrayCastException(obj, "Lscala.concurrent.duration.package$DurationInt;", depth));
+}
+var $d_s_concurrent_duration_package$DurationInt = new $TypeData().initClass($c_s_concurrent_duration_package$DurationInt, "scala.concurrent.duration.package$DurationInt", ({
+  s_concurrent_duration_package$DurationInt: 1,
+  s_concurrent_duration_DurationConversions: 1
+}));
 /** @constructor */
 function $c_s_concurrent_impl_Promise$ManyCallbacks(first, rest) {
   this.s_concurrent_impl_Promise$ManyCallbacks__f_first = null;
@@ -32896,42 +32975,53 @@ function $m_Lcom_raquo_waypoint_package$() {
   return $n_Lcom_raquo_waypoint_package$;
 }
 /** @constructor */
-function $c_Lfrontend_HttpClient$$anon$1(outer) {
-  if ((outer === null)) {
-    throw $ct_jl_NullPointerException__(new $c_jl_NullPointerException());
-  }
+function $c_Lfrontend_HttpClient$$anon$2(retriesLeft$2, url$3, delay$5) {
+  this.Lfrontend_HttpClient$$anon$2__f_retriesLeft$1 = 0;
+  this.Lfrontend_HttpClient$$anon$2__f_url$2 = null;
+  this.Lfrontend_HttpClient$$anon$2__f_delay$4 = null;
+  this.Lfrontend_HttpClient$$anon$2__f_retriesLeft$1 = retriesLeft$2;
+  this.Lfrontend_HttpClient$$anon$2__f_url$2 = url$3;
+  this.Lfrontend_HttpClient$$anon$2__f_delay$4 = delay$5;
 }
-$c_Lfrontend_HttpClient$$anon$1.prototype = new $h_sr_AbstractPartialFunction();
-$c_Lfrontend_HttpClient$$anon$1.prototype.constructor = $c_Lfrontend_HttpClient$$anon$1;
+$c_Lfrontend_HttpClient$$anon$2.prototype = new $h_sr_AbstractPartialFunction();
+$c_Lfrontend_HttpClient$$anon$2.prototype.constructor = $c_Lfrontend_HttpClient$$anon$2;
 /** @constructor */
-function $h_Lfrontend_HttpClient$$anon$1() {
+function $h_Lfrontend_HttpClient$$anon$2() {
 }
-$h_Lfrontend_HttpClient$$anon$1.prototype = $c_Lfrontend_HttpClient$$anon$1.prototype;
-$c_Lfrontend_HttpClient$$anon$1.prototype.isDefinedAt__jl_Throwable__Z = (function(x) {
+$h_Lfrontend_HttpClient$$anon$2.prototype = $c_Lfrontend_HttpClient$$anon$2.prototype;
+$c_Lfrontend_HttpClient$$anon$2.prototype.isDefinedAt__jl_Throwable__Z = (function(x) {
   return (x !== null);
 });
-$c_Lfrontend_HttpClient$$anon$1.prototype.applyOrElse__jl_Throwable__F1__O = (function(x, default$1) {
+$c_Lfrontend_HttpClient$$anon$2.prototype.applyOrElse__jl_Throwable__F1__O = (function(x, default$1) {
   if ((x !== null)) {
-    var x$1 = ("Error downloading Product: " + $n(x).getMessage__T());
+    var x$1 = ((("Error downloading Product: " + $n(x).getMessage__T()) + ". Retries left: ") + this.Lfrontend_HttpClient$$anon$2__f_retriesLeft$1);
     var this$2 = $m_s_Console$();
     var this$3 = $n(this$2.out__Ljava_io_PrintStream());
     this$3.java$lang$JSConsoleBasedPrintStream$$printString__T__V((x$1 + "\n"));
-    var this$4 = $n($m_Lfrontend_Model$package$().Lfrontend_Model$package$__f_productVar);
-    var value = $m_s_None$();
-    $f_Lcom_raquo_airstream_state_Var__set__O__V(this$4, value);
-    return (void 0);
+    if ((this.Lfrontend_HttpClient$$anon$2__f_retriesLeft$1 > 0)) {
+      return $m_Lfrontend_HttpClient$().frontend$HttpClient$$$_$fetchWithRetry$1__O__s_concurrent_duration_FiniteDuration__I__s_concurrent_Future(this.Lfrontend_HttpClient$$anon$2__f_url$2, this.Lfrontend_HttpClient$$anon$2__f_delay$4, (((-1) + this.Lfrontend_HttpClient$$anon$2__f_retriesLeft$1) | 0));
+    } else {
+      var this$4 = $n($m_Lfrontend_Model$package$().Lfrontend_Model$package$__f_productVar);
+      var value = $m_s_None$();
+      $f_Lcom_raquo_airstream_state_Var__set__O__V(this$4, value);
+      var this$6 = $m_s_Console$();
+      var this$7 = $n(this$6.out__Ljava_io_PrintStream());
+      this$7.java$lang$JSConsoleBasedPrintStream$$printString__T__V("Data is unavailable. Please check your connection \n");
+      window.alert("Data is unavailable. Please check your connection");
+      return $m_s_concurrent_Future$().failed__jl_Throwable__s_concurrent_Future(x);
+    }
   } else {
     return $n(default$1).apply__O__O(x);
   }
 });
-$c_Lfrontend_HttpClient$$anon$1.prototype.isDefinedAt__O__Z = (function(x) {
+$c_Lfrontend_HttpClient$$anon$2.prototype.isDefinedAt__O__Z = (function(x) {
   return this.isDefinedAt__jl_Throwable__Z($as_jl_Throwable(x));
 });
-$c_Lfrontend_HttpClient$$anon$1.prototype.applyOrElse__O__F1__O = (function(x, default$1) {
+$c_Lfrontend_HttpClient$$anon$2.prototype.applyOrElse__O__F1__O = (function(x, default$1) {
   return this.applyOrElse__jl_Throwable__F1__O($as_jl_Throwable(x), default$1);
 });
-var $d_Lfrontend_HttpClient$$anon$1 = new $TypeData().initClass($c_Lfrontend_HttpClient$$anon$1, "frontend.HttpClient$$anon$1", ({
-  Lfrontend_HttpClient$$anon$1: 1,
+var $d_Lfrontend_HttpClient$$anon$2 = new $TypeData().initClass($c_Lfrontend_HttpClient$$anon$2, "frontend.HttpClient$$anon$2", ({
+  Lfrontend_HttpClient$$anon$2: 1,
   sr_AbstractPartialFunction: 1,
   F1: 1,
   s_PartialFunction: 1,
@@ -47916,9 +48006,9 @@ $c_s_concurrent_impl_Promise$DefaultPromise.prototype.map__F1__s_concurrent_Exec
   var state = this.ju_concurrent_atomic_AtomicReference__f_value;
   return ((!(state instanceof $c_s_util_Failure)) ? $as_s_concurrent_Future($p_s_concurrent_impl_Promise$DefaultPromise__dispatchOrAddCallbacks__O__s_concurrent_impl_Promise$Callbacks__s_concurrent_impl_Promise$Callbacks(this, state, $ct_s_concurrent_impl_Promise$Transformation__I__F1__s_concurrent_ExecutionContext__(new $c_s_concurrent_impl_Promise$Transformation(), 1, f, executor))) : this);
 });
-$c_s_concurrent_impl_Promise$DefaultPromise.prototype.recover__s_PartialFunction__s_concurrent_ExecutionContext__s_concurrent_Future = (function(pf, executor) {
+$c_s_concurrent_impl_Promise$DefaultPromise.prototype.recoverWith__s_PartialFunction__s_concurrent_ExecutionContext__s_concurrent_Future = (function(pf, executor) {
   var state = this.ju_concurrent_atomic_AtomicReference__f_value;
-  return ((!(state instanceof $c_s_util_Success)) ? $as_s_concurrent_Future($p_s_concurrent_impl_Promise$DefaultPromise__dispatchOrAddCallbacks__O__s_concurrent_impl_Promise$Callbacks__s_concurrent_impl_Promise$Callbacks(this, state, $ct_s_concurrent_impl_Promise$Transformation__I__F1__s_concurrent_ExecutionContext__(new $c_s_concurrent_impl_Promise$Transformation(), 7, pf, executor))) : this);
+  return ((!(state instanceof $c_s_util_Success)) ? $as_s_concurrent_Future($p_s_concurrent_impl_Promise$DefaultPromise__dispatchOrAddCallbacks__O__s_concurrent_impl_Promise$Callbacks__s_concurrent_impl_Promise$Callbacks(this, state, $ct_s_concurrent_impl_Promise$Transformation__I__F1__s_concurrent_ExecutionContext__(new $c_s_concurrent_impl_Promise$Transformation(), 8, pf, executor))) : this);
 });
 $c_s_concurrent_impl_Promise$DefaultPromise.prototype.onComplete__F1__s_concurrent_ExecutionContext__V = (function(func, executor) {
   $p_s_concurrent_impl_Promise$DefaultPromise__dispatchOrAddCallbacks__O__s_concurrent_impl_Promise$Callbacks__s_concurrent_impl_Promise$Callbacks(this, this.ju_concurrent_atomic_AtomicReference__f_value, $ct_s_concurrent_impl_Promise$Transformation__I__F1__s_concurrent_ExecutionContext__(new $c_s_concurrent_impl_Promise$Transformation(), 6, func, executor));

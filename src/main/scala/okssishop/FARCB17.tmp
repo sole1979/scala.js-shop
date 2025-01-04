@@ -48,9 +48,9 @@ object HttpClient:
   def fetchProductWithRetry(category: String, sku: String): Unit = {
     val maxRetries: Int = 5
     val url: RequestInfo = s"http://localhost:8080/$category/$sku"
-    val delay: FiniteDuration = 1500.millis //3.seconds
+    val delay: FiniteDuration = 500.millis //3.seconds
 
-    def sleepReject(delay: FiniteDuration): Promise[Nothing] = Promise.apply((resolve, reject) =>
+    def sleepReject(delay: FiniteDuration): Promise[Unit] = Promise.apply((resolve, reject) =>
       dom.window.setTimeout(() => reject(new Exception(s"Timeout exception after delay ${delay.toMillis} ms")), delay.toMillis.toDouble)
     )
 
@@ -58,7 +58,7 @@ object HttpClient:
 
 
     def fetchWithRetry(retriesLeft: Int): Future[Unit] = {
-      //val responseFuture = dom.fetch(url).toFuture
+      val responseFuture = dom.fetch(url).toFuture
       val racePromise = Promise.race(js.Array(dom.fetch(url), sleepReject(delay))).toFuture
 
       racePromise.flatMap {response =>

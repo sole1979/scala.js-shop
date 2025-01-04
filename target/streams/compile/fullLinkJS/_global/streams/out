@@ -1,29 +1,29 @@
-[0m[[0m[0minfo[0m] [0m[0mFull optimizing C:\Users\solei\scalajs\okssishop-frontend\target\scala-3.3.3\okssishop-opt[0m
-[0m[[0m[0mdebug[0m] [0m[0mLinker: Compute reachability: 826621 us[0m
-[0m[[0m[0mdebug[0m] [0m[0mLinker: Assemble LinkedClasses: 21062 us[0m
-[0m[[0m[0mdebug[0m] [0m[0mLinker: Check IR: 348794 us[0m
-[0m[[0m[0mdebug[0m] [0m[0mLinker: 1230979 us[0m
-[0m[[0m[0mdebug[0m] [0m[0mOptimizer: Batch mode: true[0m
-[0m[[0m[0mdebug[0m] [0m[0mOptimizer: Incremental part: 59575 us[0m
-[0m[[0m[0mdebug[0m] [0m[0mOptimizer: Elidable constructors: 755 us[0m
-[0m[[0m[0mdebug[0m] [0m[0mOptimizer: Optimizing 10859 methods.[0m
-[0m[[0m[0mdebug[0m] [0m[0mOptimizer: Optimizer part: 1402337 us[0m
-[0m[[0m[0mdebug[0m] [0m[0mOptimizer: 1467515 us[0m
-[0m[[0m[0mdebug[0m] [0m[0mRefiner: Compute reachability: 202309 us[0m
-[0m[[0m[0mdebug[0m] [0m[0mRefiner: Assemble LinkedClasses: 13689 us[0m
-[0m[[0m[0mdebug[0m] [0m[0mRefiner: 217010 us[0m
-[0m[[0m[0mdebug[0m] [0m[0mModule Splitter: Calculate Dependency Info: 899 us[0m
-[0m[[0m[0mdebug[0m] [0m[0mModule Splitter: Analyze Modules: 4856 us[0m
-[0m[[0m[0mdebug[0m] [0m[0mModule Splitter: Assemble Modules: 1514 us[0m
-[0m[[0m[0mdebug[0m] [0m[0mModule Splitter: 7657 us[0m
-[0m[[0m[0mdebug[0m] [0m[0mEmitter: Generate Classes: 914963 us[0m
-[0m[[0m[0mdebug[0m] [0m[0mEmitter: Write trees: 11081 us[0m
-[0m[[0m[0mdebug[0m] [0m[0mEmitter: Class tree cache stats: reused: 0 -- invalidated: 947[0m
-[0m[[0m[0mdebug[0m] [0m[0mEmitter: Method tree cache stats: reused: 0 -- invalidated: 5251[0m
-[0m[[0m[0mdebug[0m] [0m[0mEmitter: Pre prints: 7335[0m
-[0m[[0m[0mdebug[0m] [0m[0mName compressor: Collect property names to avoid: 3863 us[0m
-[0m[[0m[0mdebug[0m] [0m[0mName compressor: Allocate property names: 148565 us[0m
-[0m[[0m[0mdebug[0m] [0m[0mName compressor: Allocate ancestor names: 3555 us[0m
-[0m[[0m[0mdebug[0m] [0m[0mEmitter: 1098120 us[0m
-[0m[[0m[0mdebug[0m] [0m[0mBasicBackend: Write result: 255315 us[0m
-[0m[[0m[0mdebug[0m] [0m[0mBasicBackend: total modules: 1; re-written: 1[0m
+[info] Full optimizing C:\Users\User\Documents\Project Scala.js\scala.js-shop\target\scala-3.3.3\okssishop-opt
+[debug] Linker: Compute reachability: 1398319 us
+[debug] Linker: Assemble LinkedClasses: 91600 us
+[debug] Linker: Check IR: 316021 us
+[debug] Linker: 1900782 us
+[debug] Optimizer: Batch mode: true
+[debug] Optimizer: Incremental part: 248891 us
+[debug] Optimizer: Elidable constructors: 11774 us
+[debug] Optimizer: Optimizing 10880 methods.
+[debug] Optimizer: Optimizer part: 1564935 us
+[debug] Optimizer: 1841435 us
+[debug] Refiner: Compute reachability: 309300 us
+[debug] Refiner: Assemble LinkedClasses: 21282 us
+[debug] Refiner: 332937 us
+[debug] Module Splitter: Calculate Dependency Info: 3624 us
+[debug] Module Splitter: Analyze Modules: 31799 us
+[debug] Module Splitter: Assemble Modules: 10552 us
+[debug] Module Splitter: 47831 us
+[debug] Emitter: Generate Classes: 984491 us
+[debug] Emitter: Write trees: 47656 us
+[debug] Emitter: Class tree cache stats: reused: 0 -- invalidated: 949
+[debug] Emitter: Method tree cache stats: reused: 0 -- invalidated: 5258
+[debug] Emitter: Pre prints: 7348
+[debug] Name compressor: Collect property names to avoid: 2380 us
+[debug] Name compressor: Allocate property names: 22966 us
+[debug] Name compressor: Allocate ancestor names: 3134 us
+[debug] Emitter: 1209110 us
+[debug] BasicBackend: Write result: 306650 us
+[debug] BasicBackend: total modules: 1; re-written: 1
