@@ -33,6 +33,8 @@ object Main:
 
 
   def appElement(): Element =
+    HttpClient.fetchCategories()
+
     div(
       h1("OkssiShop !!"),
       child <-- router.currentPageSignal.map {

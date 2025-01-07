@@ -21,12 +21,12 @@ import org.scalajs.dom
 
 def renderItemPage(category: String, itemCode: String): HtmlElement =
 
- val itemVar = Model.dataVar.signal.map ( items =>
-   items.filter(_.itemCode == itemCode)
- )
+// val itemVar = Model.dataVar.signal.map ( items =>
+ //  items.filter(_.itemCode == itemCode)
+ //)
 
   productVar.set(None) 
-  HttpClient.fetchProductWithRetry(category, itemCode)
+  HttpClient.fetchProduct(category, itemCode)
 
   div(
     h2("Item Page"),

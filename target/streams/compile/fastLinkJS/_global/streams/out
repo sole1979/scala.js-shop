@@ -1,25 +1,25 @@
 [0m[[0m[0minfo[0m] [0m[0mFast optimizing C:\Users\User\Documents\Project Scala.js\scala.js-shop\target\scala-3.3.3\okssishop-fastopt[0m
-[0m[[0m[0mdebug[0m] [0m[0mLinker: Compute reachability: 59947 us[0m
-[0m[[0m[0mdebug[0m] [0m[0mLinker: Assemble LinkedClasses: 19170 us[0m
-[0m[[0m[0mdebug[0m] [0m[0mLinker: 104788 us[0m
+[0m[[0m[0mdebug[0m] [0m[0mLinker: Compute reachability: 101321 us[0m
+[0m[[0m[0mdebug[0m] [0m[0mLinker: Assemble LinkedClasses: 18864 us[0m
+[0m[[0m[0mdebug[0m] [0m[0mLinker: 182254 us[0m
 [0m[[0m[0mdebug[0m] [0m[0mOptimizer: Batch mode: false[0m
-[0m[[0m[0mdebug[0m] [0m[0mOptimizer: Incremental part: 13770 us[0m
-[0m[[0m[0mdebug[0m] [0m[0mOptimizer: Elidable constructors: 781 us[0m
-[0m[[0m[0mdebug[0m] [0m[0mOptimizer: Optimizing 1 methods.[0m
-[0m[[0m[0mdebug[0m] [0m[0mOptimizer: Optimizer part: 513 us[0m
-[0m[[0m[0mdebug[0m] [0m[0mOptimizer: 19568 us[0m
-[0m[[0m[0mdebug[0m] [0m[0mRefiner: Compute reachability: 37109 us[0m
-[0m[[0m[0mdebug[0m] [0m[0mRefiner: Assemble LinkedClasses: 9481 us[0m
-[0m[[0m[0mdebug[0m] [0m[0mRefiner: 47744 us[0m
-[0m[[0m[0mdebug[0m] [0m[0mModule Splitter: Calculate Dependency Info: 652 us[0m
-[0m[[0m[0mdebug[0m] [0m[0mModule Splitter: Analyze Modules: 3076 us[0m
-[0m[[0m[0mdebug[0m] [0m[0mModule Splitter: Assemble Modules: 1618 us[0m
-[0m[[0m[0mdebug[0m] [0m[0mModule Splitter: 5599 us[0m
-[0m[[0m[0mdebug[0m] [0m[0mEmitter: Generate Classes: 11929 us[0m
-[0m[[0m[0mdebug[0m] [0m[0mEmitter: Write trees: 922 us[0m
-[0m[[0m[0mdebug[0m] [0m[0mEmitter: Class tree cache stats: reused: 986 -- invalidated: 2[0m
-[0m[[0m[0mdebug[0m] [0m[0mEmitter: Method tree cache stats: reused: 5268 -- invalidated: 3[0m
-[0m[[0m[0mdebug[0m] [0m[0mEmitter: Pre prints: 8[0m
-[0m[[0m[0mdebug[0m] [0m[0mEmitter: 20415 us[0m
-[0m[[0m[0mdebug[0m] [0m[0mBasicBackend: Write result: 22168 us[0m
+[0m[[0m[0mdebug[0m] [0m[0mOptimizer: Incremental part: 112568 us[0m
+[0m[[0m[0mdebug[0m] [0m[0mOptimizer: Elidable constructors: 1288 us[0m
+[0m[[0m[0mdebug[0m] [0m[0mOptimizer: Optimizing 63 methods.[0m
+[0m[[0m[0mdebug[0m] [0m[0mOptimizer: Optimizer part: 42018 us[0m
+[0m[[0m[0mdebug[0m] [0m[0mOptimizer: 162381 us[0m
+[0m[[0m[0mdebug[0m] [0m[0mRefiner: Compute reachability: 110046 us[0m
+[0m[[0m[0mdebug[0m] [0m[0mRefiner: Assemble LinkedClasses: 27272 us[0m
+[0m[[0m[0mdebug[0m] [0m[0mRefiner: 138471 us[0m
+[0m[[0m[0mdebug[0m] [0m[0mModule Splitter: Calculate Dependency Info: 2060 us[0m
+[0m[[0m[0mdebug[0m] [0m[0mModule Splitter: Analyze Modules: 15220 us[0m
+[0m[[0m[0mdebug[0m] [0m[0mModule Splitter: Assemble Modules: 4722 us[0m
+[0m[[0m[0mdebug[0m] [0m[0mModule Splitter: 22499 us[0m
+[0m[[0m[0mdebug[0m] [0m[0mEmitter: Generate Classes: 97197 us[0m
+[0m[[0m[0mdebug[0m] [0m[0mEmitter: Write trees: 2733 us[0m
+[0m[[0m[0mdebug[0m] [0m[0mEmitter: Class tree cache stats: reused: 992 -- invalidated: 1[0m
+[0m[[0m[0mdebug[0m] [0m[0mEmitter: Method tree cache stats: reused: 5277 -- invalidated: 43[0m
+[0m[[0m[0mdebug[0m] [0m[0mEmitter: Pre prints: 47[0m
+[0m[[0m[0mdebug[0m] [0m[0mEmitter: 130066 us[0m
+[0m[[0m[0mdebug[0m] [0m[0mBasicBackend: Write result: 181647 us[0m
 [0m[[0m[0mdebug[0m] [0m[0mBasicBackend: total modules: 1; re-written: 1[0m

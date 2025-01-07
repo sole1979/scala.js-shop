@@ -10,6 +10,7 @@ import scala.scalajs.js
 
 import com.raquo.laminar.api.L.{*, given}
 import com.raquo.laminar.api._
+import org.scalajs.dom.html.Anchor
 
 import org.scalajs.dom
 
@@ -20,14 +21,52 @@ import org.scalajs.dom
 
 
 def renderHomePage(): HtmlElement =
+ div( 
   div(
     h2("Home Page"),
-    h3("Этот сайт для тебя, дорогой Покупатель! Он сделан с любовью!!"),
-    a(
-      href := router.absoluteUrlForPage(PageCategory("outewrar")),
+    h3("This Site For You!!"),
+    //a(
+    //  href := router.absoluteUrlForPage(PageCategory("outewrar")),
     //  onClick.preventDefault --> (_ => router.pushState(PageCategory("outewear"))),
-      "Press For Page-Category -outewear-"
-    )
+    //  "Press For Page-Category -outewear-"
+    //)
+  ),
+
+  div(
+    styleAttr := "display: flex; flex-direction: column; gap: 10px; padding: 3px; background-color: #f8f8f8;",
+    children <-- categoriesVar.signal.map { categories =>
+      categories.map { category =>
+        a(
+          href := router.absoluteUrlForPage(PageCategory(s"$category")),
+          styleAttr := """"
+            text-decoration: none;
+            color: #333;
+            //gap: 1px;
+            padding: 1px 10px;
+            borber-radius: 4px;
+            transition: background-color 0.3s;
+          """,
+          onMouseEnter --> { event =>
+            event.target.asInstanceOf[Anchor].style.backgroundColor = "#ddd"
+          },
+          onMouseLeave -->  { event =>
+            event.target.asInstanceOf[Anchor].style.backgroundColor = ""
+          },
+          category
+        )
+      }
+    }
   )
+ )
+  //div(
+  //  ul(
+  //    children <-- categoriesVar.signal.map { categories =>
+  //      categories.map { category =>
+  //        li(category)
+  //      }
+  //    }
+  //  )
+  //)
+ //)
 end renderHomePage
 

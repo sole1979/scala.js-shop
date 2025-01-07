@@ -14,7 +14,6 @@ import scala.scalajs.js.JSON
 //def toJsonString[T: Writer](t: T) = upickle.default.write(t)
 
 case class Product(sku: String, category: String, name: String, price: BigDecimal, descr: String, srcImg: String)
-  
 //object Responses:
 object Product {
   implicit val bigDecimalRW: ReadWriter[BigDecimal] = readwriter[String]
@@ -29,15 +28,10 @@ object Product {
 //object Payloads:
 //end Payloads
 val productVar: Var[Option[Product]] = Var(None) // None, пока данные не загружены
-
+val categoriesVar: Var[List[String]] = Var(List.empty)
+val categoryProductsVar: Var[List[Product]] = Var(List.empty)
 
 case class  DataItem(itemCode: String, category: String, name: String, price: Double, descr: String, srcImg: String, srcOut: String)
-//добавляем методы здесь
-
-//object DataItem:
-//здесь добавляем дополнительные методы
-//+метод apply()
-//end DataItem
 
 object Model:
   @js.native @JSImport("/img/kurtka1.jpg", JSImport.Default)
@@ -63,11 +57,9 @@ object Model:
   @js.native @JSImport("/img/kurtka6.jpg", JSImport.Default)
   val srcImg6: String = js.native
   val srcOut6: String = "https://developer.mozilla.org/en-US/docs/Web/JavaScript"
-//end Model
 
 
-//final class Model:
-  //  val ItemVar: Var[DataItem] = Var()
+
     val dataVar: Var[List[DataItem]] = 
     Var(
       List(
@@ -79,8 +71,4 @@ object Model:
         DataItem("six", "outewear", "Stocking3", 550, "Crazy stocking", Model.srcImg6, Model.srcOut6)
         )
       )
-//def addDataItem(item: DataItem): Unit = ???
-//def removeDataItem(itemCode: String): Unit = ???
-//def makeDataItemUpdater...
-end Model 
-  //end setupCounter
+end Model

@@ -1,29 +1,29 @@
 [info] Full optimizing C:\Users\User\Documents\Project Scala.js\scala.js-shop\target\scala-3.3.3\okssishop-opt
-[debug] Linker: Compute reachability: 1398319 us
-[debug] Linker: Assemble LinkedClasses: 91600 us
-[debug] Linker: Check IR: 316021 us
-[debug] Linker: 1900782 us
+[debug] Linker: Compute reachability: 1664722 us
+[debug] Linker: Assemble LinkedClasses: 115022 us
+[debug] Linker: Check IR: 514897 us
+[debug] Linker: 2374679 us
 [debug] Optimizer: Batch mode: true
-[debug] Optimizer: Incremental part: 248891 us
-[debug] Optimizer: Elidable constructors: 11774 us
-[debug] Optimizer: Optimizing 10880 methods.
-[debug] Optimizer: Optimizer part: 1564935 us
-[debug] Optimizer: 1841435 us
-[debug] Refiner: Compute reachability: 309300 us
-[debug] Refiner: Assemble LinkedClasses: 21282 us
-[debug] Refiner: 332937 us
-[debug] Module Splitter: Calculate Dependency Info: 3624 us
-[debug] Module Splitter: Analyze Modules: 31799 us
-[debug] Module Splitter: Assemble Modules: 10552 us
-[debug] Module Splitter: 47831 us
-[debug] Emitter: Generate Classes: 984491 us
-[debug] Emitter: Write trees: 47656 us
-[debug] Emitter: Class tree cache stats: reused: 0 -- invalidated: 949
-[debug] Emitter: Method tree cache stats: reused: 0 -- invalidated: 5258
-[debug] Emitter: Pre prints: 7348
-[debug] Name compressor: Collect property names to avoid: 2380 us
-[debug] Name compressor: Allocate property names: 22966 us
-[debug] Name compressor: Allocate ancestor names: 3134 us
-[debug] Emitter: 1209110 us
-[debug] BasicBackend: Write result: 306650 us
+[debug] Optimizer: Incremental part: 292278 us
+[debug] Optimizer: Elidable constructors: 12068 us
+[debug] Optimizer: Optimizing 10954 methods.
+[debug] Optimizer: Optimizer part: 1942737 us
+[debug] Optimizer: 2273869 us
+[debug] Refiner: Compute reachability: 254042 us
+[debug] Refiner: Assemble LinkedClasses: 44246 us
+[debug] Refiner: 303497 us
+[debug] Module Splitter: Calculate Dependency Info: 4587 us
+[debug] Module Splitter: Analyze Modules: 65455 us
+[debug] Module Splitter: Assemble Modules: 29036 us
+[debug] Module Splitter: 101249 us
+[debug] Emitter: Generate Classes: 1807805 us
+[debug] Emitter: Write trees: 75575 us
+[debug] Emitter: Class tree cache stats: reused: 0 -- invalidated: 954
+[debug] Emitter: Method tree cache stats: reused: 0 -- invalidated: 5307
+[debug] Emitter: Pre prints: 7405
+[debug] Name compressor: Collect property names to avoid: 4299 us
+[debug] Name compressor: Allocate property names: 26300 us
+[debug] Name compressor: Allocate ancestor names: 6638 us
+[debug] Emitter: 2026880 us
+[debug] BasicBackend: Write result: 459431 us
 [debug] BasicBackend: total modules: 1; re-written: 1
