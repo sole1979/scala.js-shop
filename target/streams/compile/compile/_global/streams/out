@@ -1,7 +1,7 @@
-[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E006] Not Found Error: C:\Users\User\Documents\Project Scala.js\scala.js-shop\src\main\scala\okssishop\ViewCategory.scala:66:12 [0m[0m[0m
-[0m[[0m[31merror[0m] [0m[0m[31m66 |[0m            item.name,[0m
-[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m            ^^^^[0m[0m
-[0m[[0m[31merror[0m] [0m[0m[31m   |[0m            Not found: item[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E006] Not Found Error: C:\Users\User\Documents\Project Scala.js\scala.js-shop\src\main\scala\okssishop\view\AuthMenu.scala:79:25 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m79 |[0m     HttpClient.register(regsterFormState)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                         ^^^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m                         Not found: regsterFormState[0m
 [0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
 [0m[[0m[31merror[0m] [0m[0m[31m   |[0m longer explanation available when compiling with `-explain`[0m
 [0m[[0m[31merror[0m] [0m[0mone error found[0m

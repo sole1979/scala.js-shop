@@ -88,6 +88,8 @@ object HttpClient:
         if (retriesLeft > 0) fetchWithRetry(retriesLeft - 1)
         else {
           categoriesVar.set(List.empty) //Var(Nil)
+         // for DevMode:
+         // categoriesVar.set(List("DEVoutwear", "DEVlingerie", "DEVsweemsuit"))
           println("Ca.Data is unavailable. Please check your connection ")
           dom.window.alert("Ca.Data is unavailable. Please check your connection")
           Future.failed(error)
@@ -132,6 +134,83 @@ object HttpClient:
     }
     fetchWithRetry(maxRetries)
   }
+
+  // fetch for Login
+  def login(loginParameter: LoginFormState): Unit = {
+    val url: RequestInfo = s"http://localhost:8080/login"
+    val delay: FiniteDuration = 10000.millis
+
+    def sleepReject(delay: FiniteDuration): Promise[Nothing] = Promise.apply((resolve, reject) =>
+      dom.window.setTimeout(() => reject(new Exception(s"Login.Timeout exception after delay ${delay.toMillis} ms")), delay.toMillis.toDouble)
+    )
+
+    val request = new dom.RequestInit {
+      method = HttpMethod.POST
+      body = upickle.default.write(loginParameter)   // to Json
+      headers = new dom.Headers {
+        append("Content-Type", "application/json")
+      }
+    }
+
+    val racePromise = Promise.race(js.Array(dom.fetch(url, request), sleepReject(delay))).toFuture
+
+    racePromise.flatMap {response =>
+      if (!response.ok) throw new Exception(s"Login HTTP Error: ${response.status}")
+      response.text().toFuture
+    }.map { json =>
+      println(json)
+      val loginAnswer = upickle.default.read[LoginAnswer](json)  //jSON in case class
+      userVar.set(Some(loginAnswer))
+      loginError.set(None)
+    }.recover {
+      case error: Throwable => {
+        userVar.set(None) //Var(Nil)
+        loginError.set(Some(error.getMessage))
+        println("Login Request is unavailable. Please check your connection ")
+        //dom.window.alert("Login Request is unavailable. Please check your connection")
+        Future.failed(error)
+      }
+    }
+  }
+
+  // fetch for Register
+  def register(registerParameter: RegisterFormState): Unit = {
+    val url: RequestInfo = s"http://localhost:8080/register"
+    val delay: FiniteDuration = 10000.millis
+
+    def sleepReject(delay: FiniteDuration): Promise[Nothing] = Promise.apply((resolve, reject) =>
+      dom.window.setTimeout(() => reject(new Exception(s"Register.Timeout exception after delay ${delay.toMillis} ms")), delay.toMillis.toDouble)
+    )
+
+    val request = new dom.RequestInit {
+      method = HttpMethod.POST
+      body = upickle.default.write(registerParameter)   // to Json
+      headers = new dom.Headers {
+        append("Content-Type", "application/json")
+      }
+    }
+
+    val racePromise = Promise.race(js.Array(dom.fetch(url, request), sleepReject(delay))).toFuture
+
+    racePromise.flatMap {response =>
+      if (!response.ok) throw new Exception(s"Register HTTP Error: ${response.status}")
+      response.text().toFuture
+    }.map { json =>
+      println(json)
+      val loginAnswer = upickle.default.read[LoginAnswer](json)  //jSON in case class
+      userVar.set(Some(loginAnswer))
+      registerError.set(None)
+    }.recover {
+      case error: Throwable => {
+        userVar.set(None) //Var(Nil)
+        registerError.set(Some(error.getMessage))
+        println("Register Request is unavailable. Please check your connection ")
+        //dom.window.alert("Login Request is unavailable. Please check your connection")
+        Future.failed(error)
+      }
+    }
+  }
+
 
 
 

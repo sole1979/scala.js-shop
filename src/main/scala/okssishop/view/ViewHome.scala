@@ -38,14 +38,12 @@ def renderHomePage(): HtmlElement =
       categories.map { category =>
         a(
           href := router.absoluteUrlForPage(PageCategory(s"$category")),
-          styleAttr := """"
-            text-decoration: none;
-            color: #333;
-            //gap: 1px;
-            padding: 1px 10px;
-            borber-radius: 4px;
-            transition: background-color 0.3s;
-          """,
+          textDecoration := "none",
+          color := "#333",
+          gap := "1px",
+          padding := "1px 10px",
+          borderRadius := "4px",
+          transition := "background-color 0.3s",
           onMouseEnter --> { event =>
             event.target.asInstanceOf[Anchor].style.backgroundColor = "#ddd"
           },
