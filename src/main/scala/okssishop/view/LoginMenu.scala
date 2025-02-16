@@ -26,6 +26,8 @@ val loginSubmitter = Observer[Unit] { _ =>
 }
 
 def renderLoginMenu(): Div =
+    import UserSession.currentUserVar
+
     nameVar.set("")
     emailVar.set("")
     passwordVar.set("")
@@ -111,15 +113,21 @@ def renderLoginMenu(): Div =
           `type` := "submit",
           marginTop := "5px",
           padding := "5px 10px",
-         // display.block
+          display <-- currentUserVar.signal.map(userOpt => if (userOpt.isDefined) "none" else "block")
         ),
         child.maybe <-- loginError.signal.map(_.map { errorMsg =>
           div(color := "red",  errorMsg)
         }),
-        child.maybe <-- userVar.signal.map(_.map { user =>
+        child.maybe <-- currentUserVar.signal.map(_.map { user =>
           div(color := "green",  s"Welcome, ${user.name}")
         })
-      )
+      ),
+      br(),
+      child.maybe <-- currentUserVar.signal.map(_.map { _ => 
+        button("Logout", onClick --> { _ => UserSession.logout() } )
+      } )
+
+
     )
 
 

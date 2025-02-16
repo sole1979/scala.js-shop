@@ -26,9 +26,19 @@ import scala.concurrent.duration._
 
 object HttpClient:
 
+  import UserSession.currentUserVar
+
+  val baseUrl: String = "http://localhost:8080"
+
+  def timeoutPromise(delay: FiniteDuration): Promise[Nothing] =
+      Promise.apply((_, reject) =>
+        dom.window.setTimeout(() => reject(new Exception(s"Refresh timeout after ${delay.toMillis} ms")), delay.toMillis.toDouble)
+      )
+
+
   def fetchProduct(category: String, sku: String): Unit = {
     val maxRetries: Int = 5
-    val url: RequestInfo = s"http://localhost:8080/$category/$sku"
+    val url: RequestInfo = s"$baseUrl/$category/$sku"
     val delay: FiniteDuration = 1500.millis //3.seconds
 
     def sleepReject(delay: FiniteDuration): Promise[Nothing] = Promise.apply((resolve, reject) =>
@@ -64,7 +74,7 @@ object HttpClient:
   // fetch All Cateries
   def fetchCategories(): Unit = {
     val maxRetries: Int = 5
-    val url: RequestInfo = s"http://localhost:8080/categories"
+    val url: RequestInfo = s"$baseUrl/categories"
     val delay: FiniteDuration = 1500.millis //3.seconds
 
     def sleepReject(delay: FiniteDuration): Promise[Nothing] = Promise.apply((resolve, reject) =>
@@ -102,7 +112,7 @@ object HttpClient:
   // fetch Product of Category
   def fetchCategoryProducts(category: String): Unit = {
     val maxRetries: Int = 5
-    val url: RequestInfo = s"http://localhost:8080/$category"
+    val url: RequestInfo = s"$baseUrl/$category"
     val delay: FiniteDuration = 1500.millis //3.seconds
 
     def sleepReject(delay: FiniteDuration): Promise[Nothing] = Promise.apply((resolve, reject) =>
@@ -137,7 +147,7 @@ object HttpClient:
 
   // fetch for Login
   def login(loginParameter: LoginFormState): Unit = {
-    val url: RequestInfo = s"http://localhost:8080/login"
+    val url: RequestInfo = s"$baseUrl/login"
     val delay: FiniteDuration = 10000.millis
 
     def sleepReject(delay: FiniteDuration): Promise[Nothing] = Promise.apply((resolve, reject) =>
@@ -159,12 +169,12 @@ object HttpClient:
       response.text().toFuture
     }.map { json =>
       println(json)
-      val loginAnswer = upickle.default.read[LoginAnswer](json)  //jSON in case class
-      userVar.set(Some(loginAnswer))
+      val loginAnswer = upickle.default.read[SessionInfo](json)  //jSON in case class
+      currentUserVar.set(Some(loginAnswer))
       loginError.set(None)
     }.recover {
       case error: Throwable => {
-        userVar.set(None) //Var(Nil)
+        currentUserVar.set(None) //Var(Nil)
         loginError.set(Some(error.getMessage))
         println("Login Request is unavailable. Please check your connection ")
         //dom.window.alert("Login Request is unavailable. Please check your connection")
@@ -175,7 +185,7 @@ object HttpClient:
 
   // fetch for Register
   def register(registerParameter: RegisterFormState): Unit = {
-    val url: RequestInfo = s"http://localhost:8080/register"
+    val url: RequestInfo = s"$baseUrl/register"
     val delay: FiniteDuration = 10000.millis
 
     def sleepReject(delay: FiniteDuration): Promise[Nothing] = Promise.apply((resolve, reject) =>
@@ -197,12 +207,12 @@ object HttpClient:
       response.text().toFuture
     }.map { json =>
       println(json)
-      val loginAnswer = upickle.default.read[LoginAnswer](json)  //jSON in case class
-      userVar.set(Some(loginAnswer))
+      val registerAnswer = upickle.default.read[SessionInfo](json)  //jSON in case class
+      currentUserVar.set(Some(registerAnswer))
       registerError.set(None)
     }.recover {
       case error: Throwable => {
-        userVar.set(None) //Var(Nil)
+        currentUserVar.set(None) //Var(Nil)
         registerError.set(Some(error.getMessage))
         println("Register Request is unavailable. Please check your connection ")
         //dom.window.alert("Login Request is unavailable. Please check your connection")
@@ -211,6 +221,59 @@ object HttpClient:
     }
   }
 
+
+  // fetch new tokens
+  def fetchNewTokens(): Future[Option[SessionInfo]] = {
+   // println("TRY TO REFRESH TOKEN. step1")
+    val url: RequestInfo = s"$baseUrl/refresh"
+    val delay: FiniteDuration = 10000.millis
+
+    val request = new dom.RequestInit {
+      method = HttpMethod.POST
+      credentials = RequestCredentials.include
+     // body = upickle.default.write(Map("refreshToken" -> refreshToken))
+     // headers = new dom.Headers {
+      //  append("Content-Type", "application/json")
+      //}
+    }
+   // println("TRY TO REFRESH TOKEN. step2")
+    val racePromise = Promise.race(js.Array(dom.fetch(url, request), timeoutPromise(delay))).toFuture
+
+    racePromise.flatMap { response =>
+      if (!response.ok) throw new Exception(s"Refresh HTTP Error: ${response.status}")
+      response.text().toFuture
+    }.map { json =>
+      println(json)
+      Some(upickle.default.read[SessionInfo](json))
+    }.recover {
+      case error: Throwable => {
+        println(s"Refresh Request failed: ${error.getMessage}")
+        None
+      }
+    }
+  }
+
+  // fetch for logout
+  def fetchLogout(): Future[Unit] = {
+    val url: RequestInfo = s"$baseUrl/logout"
+    val delay: FiniteDuration = 5000.millis
+
+    val request = new dom.RequestInit {
+      method = HttpMethod.POST
+      credentials = RequestCredentials.include
+    }
+
+    val racePromise = Promise.race(js.Array(dom.fetch(url, request), timeoutPromise(delay))).toFuture
+
+    racePromise.flatMap { response =>
+      if (!response.ok) throw new Exception(s"Logout HTTP Error: ${response.status}")
+      response.text().toFuture
+    }.map (_ => ()).recover {
+      case error: Throwable => {
+        println(s"Logouth Request failed: ${error.getMessage}")
+      }
+    }
+  }
 
 
 

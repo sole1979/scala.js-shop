@@ -21,7 +21,7 @@ object Product {
 val productVar: Var[Option[Product]] = Var(None) // None, пока данные не загружены
 val categoriesVar: Var[List[String]] = Var(List.empty)
 val categoryProductsVar: Var[List[Product]] = Var(List.empty)
-val userVar = Var(Option.empty[LoginAnswer])
+//val userVar = Var(Option.empty[LoginAnswer])
 
 case class LoginFormState(email: String, password: String)
 object LoginFormState {
@@ -33,8 +33,8 @@ object RegisterFormState {
   implicit val rw: ReadWriter[RegisterFormState] = macroRW
 }
 
-case class LoginAnswer(name: String, token: String)
-object LoginAnswer {
-  implicit val rw: ReadWriter[LoginAnswer] = macroRW
+case class SessionInfo(name: String, token: String)
+object SessionInfo {
+  implicit val rw: ReadWriter[SessionInfo] = macroRW
 }
 

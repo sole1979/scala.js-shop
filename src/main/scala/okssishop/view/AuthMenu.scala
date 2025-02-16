@@ -9,6 +9,7 @@ import org.scalajs.dom
 
 //import org.scalajs.dom
 import Main._
+import UserSession.currentUserVar
 
 //case class AuthFormState(name: String, email: String, password: String)
 val showErrorsVar = Var(false)
@@ -181,15 +182,20 @@ def renderAuthMenu(): Div =
           `type` := "submit",
           marginTop := "5px",
           padding := "5px 10px",
-         // display.block
+          display <-- currentUserVar.signal.map(userOpt => if (userOpt.isDefined) "none" else "block")
         ),
         child.maybe <-- registerError.signal.map(_.map { errorMsg =>
           div(color := "red",  errorMsg)
-        }),
-        child.maybe <-- userVar.signal.map(_.map { user =>
+        } ),
+        child.maybe <-- currentUserVar.signal.map(_.map { user =>
           div(color := "green",  s"Welcome, ${user.name}")
-        })
-      )
+        } )
+      ),
+      br(),
+      child.maybe <-- currentUserVar.signal.map(_.map { _ => 
+        button("Logout", onClick --> { _ => UserSession.logout() } )
+      } )
+
     )
 
 

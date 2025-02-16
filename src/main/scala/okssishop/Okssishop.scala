@@ -30,6 +30,8 @@ def OkssiShop(): Unit =
 end OkssiShop
 
 object Main:
+  import UserSession.currentUserVar
+  
   val isLeftMenuVisible = Var(false)
   val currentLeftMenuVar: Var[String] = Var("main")
 
@@ -84,9 +86,13 @@ object Main:
         },
       ),
       span("OkssiShop", fontSize := "20px",  marginLeft := "50px", fontWeight.bold),
-      child.maybe <-- userVar.signal.map(_.map { user =>
+      child <-- currentUserVar.signal.map {    //(_.map { user =>
+        case Some(user) =>
           div(color := "green", marginLeft := "50px", s"${user.name}")
-        })
+        case None =>
+          div(color := "green", marginLeft := "50px", "Guest")
+        }
+      //div(child <-- userVar.signal.map(_.map(_.name).getOrElse("Guest")))
     )
 
   private def renderLeftPanelOverlay(): Div = 
