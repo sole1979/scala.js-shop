@@ -3,9 +3,11 @@
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  /*color-scheme: light dark;*/
+  /*color: rgba(255, 255, 255, 0.87);*/
+  /*background-color: #242424;*/
+  background-color: #ffffff;
+  color: #213547
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -64,14 +66,76 @@ h1 {
   color: #888;
 }
 
-button {
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1005; 
+}
+
+.modal-hidden {
+  display: none;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
   border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 600px;
+  text-align: center;
+  position: relative;
+  /*&min-height: 200px;  */
+ /* max-width: 500px;
+  text-align: center;*/
+}
+
+td {
+  padding: 8px;
+  text-align: center;
+}
+
+.quantity-control {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;/*center;*/
+  gap: 5px;
+  border: 1px solid #ccc;
+  padding: 5px;
+  border-radius: 5px;
+  width: 50%;
+ /* margin: auto;  */
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.close-button:hover {
+  color: red; 
+}
+
+button {
+  border-radius: 4px;
   border: 1px solid transparent;
-  padding: 0.6em 1.2em;
+  padding: 0; /*0.6em 1.2em;*/
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: transparent/*#1a1a1a;*/
   cursor: pointer;
   transition: border-color 0.25s;
 }
@@ -83,7 +147,9 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-@media (prefers-color-scheme: light) {
+
+
+/*@media (prefers-color-scheme: light) {
   :root {
     color: #213547;
     background-color: #ffffff;
@@ -94,4 +160,4 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
-}
+}   */

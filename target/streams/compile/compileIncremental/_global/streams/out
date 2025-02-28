@@ -1,44 +1,46 @@
 [0m[[0m[0mdebug[0m] [0m[0m[zinc] IncrementalCompile -----------[0m
 [0m[[0m[0mdebug[0m] [0m[0mIncrementalCompile.incrementalCompile[0m
-[0m[[0m[0mdebug[0m] [0m[0mprevious = Stamps for: 66 products, 10 sources, 13 libraries[0m
-[0m[[0m[0mdebug[0m] [0m[0mcurrent source = Set(${BASE}/src/main/scala/okssishop/view/AuthMenu.scala, ${BASE}/src/main/scala/okssishop/view/ViewCategory.scala, ${BASE}/src/main/scala/okssishop/Model.scala, ${BASE}/src/main/scala/okssishop/Okssishop.scala, ${BASE}/src/main/scala/okssishop/view/ViewHome.scala, ${BASE}/src/main/scala/okssishop/UserSession.scala, ${BASE}/src/main/scala/okssishop/HttpClient.scala, ${BASE}/src/main/scala/okssishop/Routes.scala, ${BASE}/src/main/scala/okssishop/view/LoginMenu.scala, ${BASE}/src/main/scala/okssishop/view/ViewItem.scala)[0m
-[0m[[0m[0mdebug[0m] [0m[0m> initialChanges = InitialChanges(Changes(added = Set(), removed = Set(), changed = Set(${BASE}/src/main/scala/okssishop/view/AuthMenu.scala), unmodified = ...),Set(),Set(),API Changes: Set())[0m
+[0m[[0m[0mdebug[0m] [0m[0mprevious = Stamps for: 77 products, 13 sources, 13 libraries[0m
+[0m[[0m[0mdebug[0m] [0m[0mcurrent source = Set(${BASE}/src/main/scala/okssishop/view/AuthMenu.scala, ${BASE}/src/main/scala/okssishop/view/ViewCategory.scala, ${BASE}/src/main/scala/okssishop/Model.scala, ${BASE}/src/main/scala/okssishop/view/TopMenu.scala, ${BASE}/src/main/scala/okssishop/Okssishop.scala, ${BASE}/src/main/scala/okssishop/view/ViewHome.scala, ${BASE}/src/main/scala/okssishop/CartStore.scala, ${BASE}/src/main/scala/okssishop/UserSession.scala, ${BASE}/src/main/scala/okssishop/view/ViewCart.scala, ${BASE}/src/main/scala/okssishop/HttpClient.scala, ${BASE}/src/main/scala/okssishop/Routes.scala, ${BASE}/src/main/scala/okssishop/view/LoginMenu.scala, ${BASE}/src/main/scala/okssishop/view/ViewItem.scala)[0m
+[0m[[0m[0mdebug[0m] [0m[0m> initialChanges = InitialChanges(Changes(added = Set(), removed = Set(), changed = Set(${BASE}/src/main/scala/okssishop/view/TopMenu.scala), unmodified = ...),Set(),Set(),API Changes: Set())[0m
 [0m[[0m[0mdebug[0m] [0m[0m[0m
 [0m[[0m[0mdebug[0m] [0m[0mInitial source changes:[0m
 [0m[[0m[0mdebug[0m] [0m[0m	removed: Set()[0m
 [0m[[0m[0mdebug[0m] [0m[0m	added: Set()[0m
-[0m[[0m[0mdebug[0m] [0m[0m	modified: Set(${BASE}/src/main/scala/okssishop/view/AuthMenu.scala)[0m
+[0m[[0m[0mdebug[0m] [0m[0m	modified: Set(${BASE}/src/main/scala/okssishop/view/TopMenu.scala)[0m
 [0m[[0m[0mdebug[0m] [0m[0mInvalidated products: Set()[0m
 [0m[[0m[0mdebug[0m] [0m[0mExternal API changes: API Changes: Set()[0m
 [0m[[0m[0mdebug[0m] [0m[0mModified binary dependencies: Set()[0m
-[0m[[0m[0mdebug[0m] [0m[0mInitial directly invalidated classes: Set(frontend.AuthMenu$package, frontend.Main, frontend.HttpClient)[0m
+[0m[[0m[0mdebug[0m] [0m[0mInitial directly invalidated classes: Set(frontend.TopMenu$package, frontend.Main)[0m
 [0m[[0m[0mdebug[0m] [0m[0mSources indirectly invalidated by:[0m
 [0m[[0m[0mdebug[0m] [0m[0m	product: Set()[0m
 [0m[[0m[0mdebug[0m] [0m[0m	binary dep: Set()[0m
 [0m[[0m[0mdebug[0m] [0m[0m	external source: Set()[0m
-[0m[[0m[0mdebug[0m] [0m[0mAll initially invalidated classes: Set(frontend.AuthMenu$package, frontend.Main, frontend.HttpClient)[0m
-[0m[[0m[0mdebug[0m] [0m[0mAll initially invalidated sources:Set(${BASE}/src/main/scala/okssishop/view/AuthMenu.scala)[0m
-[0m[[0m[0mdebug[0m] [0m[0mInitial set of included nodes: frontend.OkssiShop, frontend.Okssishop$package, frontend.HttpClient, frontend.Main, frontend.AuthMenu$package[0m
+[0m[[0m[0mdebug[0m] [0m[0mAll initially invalidated classes: Set(frontend.TopMenu$package, frontend.Main)[0m
+[0m[[0m[0mdebug[0m] [0m[0mAll initially invalidated sources:Set(${BASE}/src/main/scala/okssishop/view/TopMenu.scala)[0m
+[0m[[0m[0mdebug[0m] [0m[0mInitial set of included nodes: frontend.TopMenu$package, frontend.OkssiShop, frontend.Main, frontend.Okssishop$package[0m
 [0m[[0m[0mdebug[0m] [0m[0mcompilation cycle 1[0m
-[0m[[0m[0minfo[0m] [0m[0mcompiling 3 Scala sources to C:\Users\User\Documents\Project Scala.js\scala.js-shop\target\scala-3.3.3\classes ...[0m
+[0m[[0m[0minfo[0m] [0m[0mcompiling 2 Scala sources to C:\Users\User\Documents\Project Scala.js\scala.js-shop\target\scala-3.3.3\classes ...[0m
 [0m[[0m[0mdebug[0m] [0m[0mReturning already retrieved and compiled bridge: C:\Users\User\AppData\Local\Coursier\Cache\v1\https\repo1.maven.org\maven2\org\scala-lang\scala3-sbt-bridge\3.3.3\scala3-sbt-bridge-3.3.3.jar.[0m
-[0m[[0m[0mdebug[0m] [0m[0m[zinc] Running cached compiler 737eed6 for Scala Compiler version 3.3.3[0m
+[0m[[0m[0mdebug[0m] [0m[0m[zinc] Running cached compiler 75f51967 for Scala Compiler version 3.3.3[0m
 [0m[[0m[0mdebug[0m] [0m[0m[zinc] The Scala compiler is invoked with:[0m
 [0m[[0m[0mdebug[0m] [0m[0m	-scalajs[0m
 [0m[[0m[0mdebug[0m] [0m[0m	-classpath[0m
 [0m[[0m[0mdebug[0m] [0m[0m	C:\Users\User\Documents\Project Scala.js\scala.js-shop\target\scala-3.3.3\classes;C:\Users\User\AppData\Local\Coursier\Cache\v1\https\repo1.maven.org\maven2\org\scala-lang\scala3-library_sjs1_3\3.3.4\scala3-library_sjs1_3-3.3.4.jar;C:\Users\User\AppData\Local\Coursier\Cache\v1\https\repo1.maven.org\maven2\org\scala-js\scalajs-library_2.13\1.17.0\scalajs-library_2.13-1.17.0.jar;C:\Users\User\AppData\Local\Coursier\Cache\v1\https\repo1.maven.org\maven2\org\scala-js\scalajs-dom_sjs1_3\2.8.0\scalajs-dom_sjs1_3-2.8.0.jar;C:\Users\User\AppData\Local\Coursier\Cache\v1\https\repo1.maven.org\maven2\com\raquo\laminar_sjs1_3\17.0.0\laminar_sjs1_3-17.0.0.jar;C:\Users\User\AppData\Local\Coursier\Cache\v1\https\repo1.maven.org\maven2\com\raquo\waypoint_sjs1_3\8.0.1\waypoint_sjs1_3-8.0.1.jar;C:\Users\User\AppData\Local\Coursier\Cache\v1\https\repo1.maven.org\maven2\com\lihaoyi\upickle_sjs1_3\4.0.2\upickle_sjs1_3-4.0.2.jar;C:\Users\User\AppData\Local\Coursier\Cache\v1\https\repo1.maven.org\maven2\org\scala-lang\scala-library\2.13.14\scala-library-2.13.14.jar;C:\Users\User\AppData\Local\Coursier\Cache\v1\https\repo1.maven.org\maven2\org\scala-js\scalajs-javalib\1.17.0\scalajs-javalib-1.17.0.jar;C:\Users\User\AppData\Local\Coursier\Cache\v1\https\repo1.maven.org\maven2\org\scala-js\scalajs-scalalib_2.13\2.13.13%2B1.17.0\scalajs-scalalib_2.13-2.13.13%2B1.17.0.jar;C:\Users\User\AppData\Local\Coursier\Cache\v1\https\repo1.maven.org\maven2\com\raquo\airstream_sjs1_3\17.0.0\airstream_sjs1_3-17.0.0.jar;C:\Users\User\AppData\Local\Coursier\Cache\v1\https\repo1.maven.org\maven2\com\raquo\ew_sjs1_3\0.2.0\ew_sjs1_3-0.2.0.jar;C:\Users\User\AppData\Local\Coursier\Cache\v1\https\repo1.maven.org\maven2\be\doeraene\url-dsl_sjs1_3\0.6.2\url-dsl_sjs1_3-0.6.2.jar;C:\Users\User\AppData\Local\Coursier\Cache\v1\https\repo1.maven.org\maven2\com\lihaoyi\ujson_sjs1_3\4.0.2\ujson_sjs1_3-4.0.2.jar;C:\Users\User\AppData\Local\Coursier\Cache\v1\https\repo1.maven.org\maven2\com\lihaoyi\upack_sjs1_3\4.0.2\upack_sjs1_3-4.0.2.jar;C:\Users\User\AppData\Local\Coursier\Cache\v1\https\repo1.maven.org\maven2\com\lihaoyi\upickle-implicits_sjs1_3\4.0.2\upickle-implicits_sjs1_3-4.0.2.jar;C:\Users\User\AppData\Local\Coursier\Cache\v1\https\repo1.maven.org\maven2\app\tulz\tuplez-full-light_sjs1_3\0.4.0\tuplez-full-light_sjs1_3-0.4.0.jar;C:\Users\User\AppData\Local\Coursier\Cache\v1\https\repo1.maven.org\maven2\com\lihaoyi\upickle-core_sjs1_3\4.0.2\upickle-core_sjs1_3-4.0.2.jar;C:\Users\User\AppData\Local\Coursier\Cache\v1\https\repo1.maven.org\maven2\com\lihaoyi\geny_sjs1_3\1.1.1\geny_sjs1_3-1.1.1.jar[0m
-[0m[[0m[0mdebug[0m] [0m[0mScala compilation took 1.7159592 s[0m
+[0m[[0m[0mdebug[0m] [0m[0mScala compilation took 1.0376011 s[0m
 [0m[[0m[0mdebug[0m] [0m[0mdone compiling[0m
 [0m[[0m[0mdebug[0m] [0m[0mNew invalidations:[0m
 [0m[[0m[0mdebug[0m] [0m[0mInitial set of included nodes: [0m
 [0m[[0m[0mdebug[0m] [0m[0mPreviously invalidated, but (transitively) depend on new invalidations:[0m
 [0m[[0m[0mdebug[0m] [0m[0mFinal step, transitive dependencies:[0m
 [0m[[0m[0mdebug[0m] [0m[0m	Set()[0m
-[0m[[0m[0mdebug[0m] [0m[0mInitial set of included nodes: frontend.AuthMenu$package, frontend.Main, frontend.HttpClient[0m
-[0m[[0m[0mdebug[0m] [0m[0mIncluding frontend.Main by frontend.AuthMenu$package[0m
-[0m[[0m[0mdebug[0m] [0m[0mIncluding frontend.LoginMenu$package by frontend.Main[0m
+[0m[[0m[0mdebug[0m] [0m[0mInitial set of included nodes: frontend.TopMenu$package, frontend.Main[0m
+[0m[[0m[0mdebug[0m] [0m[0mIncluding frontend.Main by frontend.TopMenu$package[0m
+[0m[[0m[0mdebug[0m] [0m[0mIncluding frontend.AuthMenu$package by frontend.Main[0m
 [0m[[0m[0mdebug[0m] [0m[0mIncluding frontend.HttpClient by frontend.AuthMenu$package[0m
 [0m[[0m[0mdebug[0m] [0m[0mIncluding frontend.UserSession by frontend.HttpClient[0m
+[0m[[0m[0mdebug[0m] [0m[0mIncluding frontend.LoginMenu$package by frontend.UserSession[0m
 [0m[[0m[0mdebug[0m] [0m[0mIncluding frontend.ViewCategory$package by frontend.HttpClient[0m
+[0m[[0m[0mdebug[0m] [0m[0mIncluding frontend.ViewCart$package by frontend.HttpClient[0m
 [0m[[0m[0mdebug[0m] [0m[0mIncluding frontend.ViewItem$package by frontend.HttpClient[0m
 [0m[[0m[0mdebug[0m] [0m[0mNo classes were invalidated.[0m

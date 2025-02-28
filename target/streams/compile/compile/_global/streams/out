@@ -1,5 +1,5 @@
-[0m[[0m[31merror[0m] [0m[0m[31m[31m-- Error: C:\Users\User\Documents\Project Scala.js\scala.js-shop\src\main\scala\okssishop\UserSession.scala:25:34 [0m[0m[0m
-[0m[[0m[31merror[0m] [0m[0m[31m25 |[0m        HttpClient.fetchNewTokens(refreshToken).foreach {[0m
-[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                                  ^^^^^^^^^^^^[0m[0m
-[0m[[0m[31merror[0m] [0m[0m[31m   |[0mtoo many arguments for [33mmethod[0m [35mfetchNewTokens[0m in [33mobject[0m [35mHttpClient[0m: (): scala.concurrent.Future[Option[frontend.SessionInfo]][0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E008] Not Found Error: C:\Users\User\Documents\Project Scala.js\scala.js-shop\src\main\scala\okssishop\view\TopMenu.scala:43:41 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m43 |[0m      child.text <-- totalQuantity.map(_.tiString)[34m// {[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                                       ^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m      value tiString is not a member of Int - did you mean _$4.toString?[0m
 [0m[[0m[31merror[0m] [0m[0mone error found[0m

@@ -38,3 +38,8 @@ object SessionInfo {
   implicit val rw: ReadWriter[SessionInfo] = macroRW
 }
 
+case class  CartProduct(sku: String, price: BigDecimal, quantity: Int)
+object CartProduct {
+  implicit val rw: ReadWriter[CartProduct] = macroRW
+}
+

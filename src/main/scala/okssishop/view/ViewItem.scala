@@ -20,62 +20,71 @@ import org.scalajs.dom
 
 
 def renderItemPage(category: String, itemCode: String): HtmlElement =
-
-// val itemVar = Model.dataVar.signal.map ( items =>
- //  items.filter(_.itemCode == itemCode)
- //)
-
   productVar.set(None) 
   HttpClient.fetchProduct(category, itemCode)
 
+  def renderAddToCartButton(sku: String, price: BigDecimal): HtmlElement = {
+    val isInCart: Signal[Boolean] = CartStore.cartVar.signal.map(_.exists(_.sku == sku))
+    button(
+      padding := "10px 15px",
+      child <-- isInCart.map(if (_) "In Cart" else "Add to Cart"),
+      backgroundColor <-- isInCart.map(if (_) "grey" else "black"),
+      color <-- isInCart.map(if (_) "black" else "white"),
+      disabled <-- isInCart,
+      onClick --> { _ =>
+        CartStore.cartVar.update { cart =>
+          CartProduct(sku, price, 1) :: cart
+        }
+      }
+    )
+  }
+
+
   div(
-    h2("Item Page"),
-    a(
-      href := router.absoluteUrlForPage(PageHome),
- //     onClick.preventDefault --> (_ => router.pushState(PageHome)),
-      "Press For Page-Home!"
-    ),
-
-
-    h3(s"item: $category $itemCode"),
-    //-----------------------
-  //  children <-- itemVar.map { listItem => 
-  //    listItem.map { item =>
-    child <-- productVar.signal.map {
+     child <-- productVar.signal.map {
       case None => div("Loading product data...")
       case Some(product) =>
+       div(
+        display.flex,
+        alignItems.center,
+        gap := "20px",
         div(
-          display.flex,
-         // width := "20%",    //flex
-          justifyContent.center,
-          alignItems.center,
-          minHeight := "100vh",
-          flexDirection := "column",
-          //boxSizing.borderBox,
-         // border := "1px solid #ddd",
-         // padding := "2px",
-         // textAlign.center,
-
-          //содержание карточки
-         // href := router.absoluteUrlForPage(PageItem(item.category, item.itemCode)),//item.srcOut,
-          //target := "_blank",
+          flex := "0 0 auto",
           img(
-           // src := item.srcImg,
             src := product.srcImg,
             alt := "WEAR",
-            width :=  "200%",
+            width :=  "400px",
             height.auto,
             borderRadius := "10px"
+          )
+        ),
+
+        div(
+          flex := "1",
+          display.flex,
+          flexDirection.column,
+          gap := "10px",
+          div(
+           display.flex,
+           gap := "5px",
+           a(
+            href := router.absoluteUrlForPage(PageHome),
+            "Main > "
           ),
+          a(
+            href := router.absoluteUrlForPage(PageCategory(s"$category")),
+            s"$category > "
+          ),
+          span(s"$itemCode")
+         ),
+
           p(
-            //item.name,
             product.name,
             fontSize := "24px",
             fontWeight.bold,
             textAlign.left
           ),
           p(
-            //s"Articul: ${item.itemCode}",
             s"Articul: ${product.sku}",
             fontSize := "10px",
             color := "green",
@@ -89,17 +98,14 @@ def renderItemPage(category: String, itemCode: String): HtmlElement =
             fontSize := "12px",
             color := "red",
             textAlign.left
-          )
+          ),
+         br(),
+         renderAddToCartButton(product.sku, product.price)
         )
-    // }
+       )
    }
 
 
-   // a(
-    //  href := router.absoluteUrlForPage(PageCategory("Simon")),
-    //  onClick.preventDefault --> (_ => router.pushState(PageCategory("Simon"))),
-    //  "Press For Page-Category -Simon-"
-    //)
   )
 end renderItemPage
 

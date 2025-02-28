@@ -38,13 +38,13 @@ object Main:
   def appElement(): Element = 
     HttpClient.fetchCategories()
 //    categoriesVar.set(List("outwear", "lingerie", "sweemsuit")) 
-
-    div(
+      div(
+      ViewCart(),
       // top menu
       renderTopMenu(),
       // main app content
       div(
-        h1("OkssiShop !!"),
+       // h1("OkssiShop !!"),
         child <-- router.currentPageSignal.map {
           case PageHome => renderHomePage()
           case PageCategory(category) => renderCategoryPage(category)
@@ -61,39 +61,7 @@ object Main:
     )
   end appElement
 
-  private def renderTopMenu(): Div =
-    div(
-      position.fixed,
-      top := "0",
-      left := "0",
-      width := "100%",
-      backgroundColor := "#333",
-      color := "white",
-      padding := "10px",
-      zIndex := "1001",
-      display.flex,
-    //  alignItems.center,
-   //   justifyContent.spaceBetween,
-      button(
-        "Menu",
-        backgroundColor := "#555",
-        color := "white",
-        border := "none",
-        padding := "5px 10px",
-        cursor.pointer,
-        onClick --> { _ =>
-          isLeftMenuVisible.update(!_)
-        },
-      ),
-      span("OkssiShop", fontSize := "20px",  marginLeft := "50px", fontWeight.bold),
-      child <-- currentUserVar.signal.map {    //(_.map { user =>
-        case Some(user) =>
-          div(color := "green", marginLeft := "50px", s"${user.name}")
-        case None =>
-          div(color := "green", marginLeft := "50px", "Guest")
-        }
-      //div(child <-- userVar.signal.map(_.map(_.name).getOrElse("Guest")))
-    )
+  
 
   private def renderLeftPanelOverlay(): Div = 
     div(

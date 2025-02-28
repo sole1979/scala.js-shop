@@ -31,9 +31,37 @@ object HttpClient:
   val baseUrl: String = "http://localhost:8080"
 
   def timeoutPromise(delay: FiniteDuration): Promise[Nothing] =
-      Promise.apply((_, reject) =>
+      Promise.apply( (_, reject) =>
         dom.window.setTimeout(() => reject(new Exception(s"Refresh timeout after ${delay.toMillis} ms")), delay.toMillis.toDouble)
       )
+
+  def fetchProductsBySku(skus: List[String]): Future[List[Product]] = {
+    val url: RequestInfo = s"$baseUrl/products?skus=${skus.mkString(",")}"
+    println(s"url = $url")
+    val delay: FiniteDuration = 5000.millis
+    val maxRetries: Int = 5
+
+    def fetchWithRetry(retriesLeft: Int): Future[List[Product]] = {
+      val racePromise = Promise.race(js.Array(dom.fetch(url), timeoutPromise(delay))).toFuture
+
+      racePromise.flatMap { response =>
+        if (!response.ok) throw new Exception(s"fetchProductsBySku HTTP Error: ${response.status}")
+        response.text().toFuture
+      }.map { json =>
+        upickle.default.read[List[Product]](json)
+      }.recoverWith {
+        case error: Throwable =>
+          println(s"fetchProductsBySku Request failed: ${error.getMessage}. Retries left: $retriesLeft")
+          if (retriesLeft > 0) fetchWithRetry(retriesLeft - 1)
+          else {
+            println("fetchProductsBySku Data is unavailable. Please check your connection.")
+            dom.window.alert("fetchProductsBySku Data is unavailable. Please check your connection.")
+            Future.failed(error)
+          }
+      }
+    }
+    fetchWithRetry(maxRetries)
+  }
 
 
   def fetchProduct(category: String, sku: String): Unit = {
@@ -41,22 +69,16 @@ object HttpClient:
     val url: RequestInfo = s"$baseUrl/$category/$sku"
     val delay: FiniteDuration = 1500.millis //3.seconds
 
-    def sleepReject(delay: FiniteDuration): Promise[Nothing] = Promise.apply((resolve, reject) =>
-      dom.window.setTimeout(() => reject(new Exception(s"Pr.Timeout exception after delay ${delay.toMillis} ms")), delay.toMillis.toDouble)
-    )
-
     def fetchWithRetry(retriesLeft: Int): Future[Unit] = {
-      val racePromise = Promise.race(js.Array(dom.fetch(url), sleepReject(delay))).toFuture
+      val racePromise = Promise.race(js.Array(dom.fetch(url), timeoutPromise(delay))).toFuture
 
       racePromise.flatMap {response =>
         if (!response.ok) throw new Exception(s"Pr.HTTP Error: ${response.status}")
-        //println("Response Ok. Parsing...")
         response.text().toFuture
       }.map { json =>
         println(json)
-        val product = upickle.default.read[Product](json)  //jSON in case class
-        //println("okey. Product ready: " + product)
-        productVar.set(Some(product))   // update Var
+        val product = upickle.default.read[Product](json)  
+        productVar.set(Some(product))
       }.recoverWith {
         case error: Throwable => println(s"Pr.Error downloading Product: ${error.getMessage}. Retries left: $retriesLeft")
         if (retriesLeft > 0) fetchWithRetry(retriesLeft - 1)
@@ -77,12 +99,8 @@ object HttpClient:
     val url: RequestInfo = s"$baseUrl/categories"
     val delay: FiniteDuration = 1500.millis //3.seconds
 
-    def sleepReject(delay: FiniteDuration): Promise[Nothing] = Promise.apply((resolve, reject) =>
-      dom.window.setTimeout(() => reject(new Exception(s"Ca.Timeout exception after delay ${delay.toMillis} ms")), delay.toMillis.toDouble)
-    )
-
     def fetchWithRetry(retriesLeft: Int): Future[Unit] = {
-      val racePromise = Promise.race(js.Array(dom.fetch(url), sleepReject(delay))).toFuture
+      val racePromise = Promise.race(js.Array(dom.fetch(url), timeoutPromise(delay))).toFuture
 
       racePromise.flatMap {response =>
         if (!response.ok) throw new Exception(s"Ca.HTTP Error: ${response.status}")
@@ -115,21 +133,15 @@ object HttpClient:
     val url: RequestInfo = s"$baseUrl/$category"
     val delay: FiniteDuration = 1500.millis //3.seconds
 
-    def sleepReject(delay: FiniteDuration): Promise[Nothing] = Promise.apply((resolve, reject) =>
-      dom.window.setTimeout(() => reject(new Exception(s"CaPr.Timeout exception after delay ${delay.toMillis} ms")), delay.toMillis.toDouble)
-    )
-
     def fetchWithRetry(retriesLeft: Int): Future[Unit] = {
-      val racePromise = Promise.race(js.Array(dom.fetch(url), sleepReject(delay))).toFuture
+      val racePromise = Promise.race(js.Array(dom.fetch(url), timeoutPromise(delay))).toFuture
 
       racePromise.flatMap {response =>
         if (!response.ok) throw new Exception(s"CaPr.HTTP Error: ${response.status}")
-        //println("Response Ok. Parsing...")
         response.text().toFuture
       }.map { json =>
         println(json)
-        val categoryProducts = upickle.default.read[List[Product]](json)  //jSON in case class
-        //println("okey. Product ready: " + product)
+        val categoryProducts = upickle.default.read[List[Product]](json)  
         categoryProductsVar.set(categoryProducts)   // update Var
       }.recoverWith {
         case error: Throwable => println(s"CaPr.Error downloading CategoryProducts: ${error.getMessage}. Retries left: $retriesLeft")
@@ -150,10 +162,6 @@ object HttpClient:
     val url: RequestInfo = s"$baseUrl/login"
     val delay: FiniteDuration = 10000.millis
 
-    def sleepReject(delay: FiniteDuration): Promise[Nothing] = Promise.apply((resolve, reject) =>
-      dom.window.setTimeout(() => reject(new Exception(s"Login.Timeout exception after delay ${delay.toMillis} ms")), delay.toMillis.toDouble)
-    )
-
     val request = new dom.RequestInit {
       method = HttpMethod.POST
       body = upickle.default.write(loginParameter)   // to Json
@@ -162,7 +170,7 @@ object HttpClient:
       }
     }
 
-    val racePromise = Promise.race(js.Array(dom.fetch(url, request), sleepReject(delay))).toFuture
+    val racePromise = Promise.race(js.Array(dom.fetch(url, request), timeoutPromise(delay))).toFuture
 
     racePromise.flatMap {response =>
       if (!response.ok) throw new Exception(s"Login HTTP Error: ${response.status}")
@@ -188,10 +196,6 @@ object HttpClient:
     val url: RequestInfo = s"$baseUrl/register"
     val delay: FiniteDuration = 10000.millis
 
-    def sleepReject(delay: FiniteDuration): Promise[Nothing] = Promise.apply((resolve, reject) =>
-      dom.window.setTimeout(() => reject(new Exception(s"Register.Timeout exception after delay ${delay.toMillis} ms")), delay.toMillis.toDouble)
-    )
-
     val request = new dom.RequestInit {
       method = HttpMethod.POST
       body = upickle.default.write(registerParameter)   // to Json
@@ -200,7 +204,7 @@ object HttpClient:
       }
     }
 
-    val racePromise = Promise.race(js.Array(dom.fetch(url, request), sleepReject(delay))).toFuture
+    val racePromise = Promise.race(js.Array(dom.fetch(url, request), timeoutPromise(delay))).toFuture
 
     racePromise.flatMap {response =>
       if (!response.ok) throw new Exception(s"Register HTTP Error: ${response.status}")
@@ -224,19 +228,14 @@ object HttpClient:
 
   // fetch new tokens
   def fetchNewTokens(): Future[Option[SessionInfo]] = {
-   // println("TRY TO REFRESH TOKEN. step1")
     val url: RequestInfo = s"$baseUrl/refresh"
     val delay: FiniteDuration = 10000.millis
 
     val request = new dom.RequestInit {
       method = HttpMethod.POST
       credentials = RequestCredentials.include
-     // body = upickle.default.write(Map("refreshToken" -> refreshToken))
-     // headers = new dom.Headers {
-      //  append("Content-Type", "application/json")
-      //}
     }
-   // println("TRY TO REFRESH TOKEN. step2")
+
     val racePromise = Promise.race(js.Array(dom.fetch(url, request), timeoutPromise(delay))).toFuture
 
     racePromise.flatMap { response =>
