@@ -47,6 +47,7 @@ object Main:
        // h1("OkssiShop !!"),
         child <-- router.currentPageSignal.map {
           case PageHome => renderHomePage()
+          case PageFavorites => renderFavoritesPage()
           case PageCategory(category) => renderCategoryPage(category)
           case PageItem(category, itemCode) => renderItemPage(category, itemCode)
         }

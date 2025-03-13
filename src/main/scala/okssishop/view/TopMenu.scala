@@ -13,11 +13,19 @@ import UserSession.currentUserVar
 
 
 val modalVar = Var(false)
+//val totalQuantityFavorites = favoritesVar.signal.map(_.size)
+val isFavoritesEmpty: Signal[Boolean] = favoritesVar.signal.map(_.isEmpty)  
 
 //modalVar.signal.foreach(v =>
 //  println(s"ModalVar changed: $v"))(unsafeWindoOwner)
 
 private def renderTopMenu(): Div =
+  //val totalQuantity = UserSession.favoritesVar.signal.map(_.size)
+  //currentUserVar
+ // UserSession.loadFavorites()
+
+  
+
   def renderCartTotal(): HtmlElement = {
     val totalPrice = CartStore.cartVar.signal.map(_.map(p => p.price * p.quantity).sum)
     div(
@@ -42,9 +50,6 @@ private def renderTopMenu(): Div =
       lineHeight := "18px",
       display <-- totalQuantity.map(q => if (q == 0) "none" else "block"),
       child.text <-- totalQuantity.map(_.toString)// {
-       // case 0 => ""
-       // case q => s"$q"
-      //}
     )
   }
 
@@ -58,13 +63,53 @@ private def renderTopMenu(): Div =
         height := "34px"
       ),
       onClick --> {_ => modalVar.set(true)},
-     // disabled <-- CartStore.cartVar.signal.map(_.isEmpty)
-      //cartItemsSignal.map { cartItems =>
-         // if (cartItems.isEmpty)
     ),
     renderCartQuantity(),
-   // ViewCart()
   )
+
+  def renderFavoriteQuantity(): HtmlElement = {
+    //val totalQuantity = UserSession.favoritesVar.signal.map(_.size)
+    val totalQuantityFavorites = favoritesVar.signal.map(_.size)
+    div(
+      position.absolute,
+      top := "25px",
+      right := "-5px",
+      backgroundColor := "red",
+      color := "white",
+      fontSize := "12px",
+      fontWeight.bold,
+      borderRadius := "50%",
+      width := "18px",
+      height := "18px",
+      textAlign.center,
+      lineHeight := "18px",
+      display <-- totalQuantityFavorites.map(q => if (q == 0) "none" else "block"),
+      child.text <-- totalQuantityFavorites.map(_.toString)// {
+    )
+  }
+
+  def favoriteButton(): HtmlElement = {
+  //  val isFavoritesEmpty: Signal[Boolean] = UserSession.favoritesVar.signal.map(_.isEmpty)
+
+    val favoriteImage = isFavoritesEmpty.map {
+      case false => "/img/system/heart-red-icon.svg"
+      case true => "/img/system/heart-thin-icon.svg"
+    }
+    div(
+      position.relative,
+      button(
+        img(
+          src <-- favoriteImage,
+          alt := "Favorite",
+          width := "34px",
+          height := "34px"
+        ),
+        onClick --> {_ => router.pushState(PageFavorites)}
+      ),
+      renderFavoriteQuantity()
+    )
+
+  }
 
     div(
       position.fixed,
@@ -101,6 +146,9 @@ private def renderTopMenu(): Div =
         case None =>
           div(color := "green", marginLeft := "50px", "Guest", flex := "1", textAlign := "right")
       },
+      div(
+        favoriteButton()
+      ),
       div(
         cartButton()
       ),

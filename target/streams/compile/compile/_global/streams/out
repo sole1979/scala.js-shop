@@ -1,5 +1,5 @@
-[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E008] Not Found Error: C:\Users\User\Documents\Project Scala.js\scala.js-shop\src\main\scala\okssishop\view\TopMenu.scala:43:41 [0m[0m[0m
-[0m[[0m[31merror[0m] [0m[0m[31m43 |[0m      child.text <-- totalQuantity.map(_.tiString)[34m// {[0m
-[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                                       ^^^^^^^^^^[0m[0m
-[0m[[0m[31merror[0m] [0m[0m[31m   |[0m      value tiString is not a member of Int - did you mean _$4.toString?[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E008] Not Found Error: C:\Users\User\Documents\Project Scala.js\scala.js-shop\src\main\scala\okssishop\view\ViewFavorites.scala:74:51 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m74 |[0m                UserSession.removeFavorite(product.scu)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                                           ^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0mvalue scu is not a member of frontend.Product - did you mean product.sku?[0m
 [0m[[0m[31merror[0m] [0m[0mone error found[0m

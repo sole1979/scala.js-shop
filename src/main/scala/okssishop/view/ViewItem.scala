@@ -12,14 +12,18 @@ import com.raquo.laminar.api.L.{*, given}
 import com.raquo.laminar.api._
 
 import org.scalajs.dom
+import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.ExecutionContext
 
 //import upickle.default.ReadWriter
 //import upickle.default._
 //import urldsl.vocabulary.UrlMatching
 //import upickle.default.{ReadWriter => RW, macroRW}
 
+//implicit val ec: ExecutionContext = ExecutionContext.global
 
 def renderItemPage(category: String, itemCode: String): HtmlElement =
+
   productVar.set(None) 
   HttpClient.fetchProduct(category, itemCode)
 
@@ -39,6 +43,20 @@ def renderItemPage(category: String, itemCode: String): HtmlElement =
     )
   }
 
+  def renderFavoriteButton(sku: String): HtmlElement = {
+    val isFavorite: Signal[Boolean] = favoritesVar.signal.map(_.contains(sku))//_.exists(_.sku == sku))
+
+    button(
+      padding := "10px 15px",
+      child <-- isFavorite.map(if (_) "Remove from Favorites" else "Add to Favorites"),
+      backgroundColor <-- isFavorite.map(if (_) "red" else "white"),
+      color <-- isFavorite.map(if (_) "white" else "black"),
+      borderColor := "red",
+      borderWidth := "2px",
+      borderStyle := "solid",
+      onClick.mapTo(()) --> (_ => UserSession.toggleFavorite(sku))   //toggleFavoriteObserver
+    )
+  }
 
   div(
      child <-- productVar.signal.map {
@@ -100,7 +118,9 @@ def renderItemPage(category: String, itemCode: String): HtmlElement =
             textAlign.left
           ),
          br(),
-         renderAddToCartButton(product.sku, product.price)
+         renderAddToCartButton(product.sku, product.price),
+         br(),
+         renderFavoriteButton(product.sku)
         )
        )
    }

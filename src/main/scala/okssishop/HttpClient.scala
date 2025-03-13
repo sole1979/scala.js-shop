@@ -274,6 +274,105 @@ object HttpClient:
     }
   }
 
+  // fetch for insert Favorite
+  def addToFavorites(productSku: String): Future[Either[String, List[Product]]] = {
+    val url: RequestInfo = s"$baseUrl/favorite"
+    val delay: FiniteDuration = 10000.millis
+    def tokenOpt = currentUserVar.now().map(_.token)
 
+    tokenOpt match {
+      case Some(token) =>
+        val request = js.Dynamic.literal(
+          method = "POST", 
+          headers = js.Dictionary(
+            "Content-Type" -> "application/json",
+            "Authorization" -> s"Bearer $token"
+          ),
+          body = upickle.default.write(FavoriteRequest(productSku))
+        ).asInstanceOf[dom.RequestInit]// }
+
+    //    print(s"TRY ADD THRu FETCH  $productSku")
+        val racePromise = Promise.race(js.Array(dom.fetch(url, request), timeoutPromise(delay))).toFuture
+
+        racePromise.flatMap { response =>
+         // println("i GOT ANSWER")
+          if (!response.ok) throw new Exception(s"${response.status}")
+          response.text().toFuture
+        }.map {responseBody => 
+        //  println(s"--RESPONSE body: $responseBody")
+          Right(upickle.default.read[List[Product]](responseBody))
+        }.recover { case error: Throwable => {
+            Left(s"add To Favorites error: ${error.getMessage}")
+          }
+        }
+      case None => 
+        Future.successful(Left("User is not authenticated"))
+    }
+  }
+
+
+  // fetch for delete Favorite
+  def deleteFromFavorites(productSku: String): Future[Either[String, List[Product]]] = {
+    val url: RequestInfo = s"$baseUrl/favorite/$productSku"
+    val delay: FiniteDuration = 10000.millis
+    def tokenOpt = currentUserVar.now().map(_.token)
+
+    tokenOpt match {
+      case Some(token) =>
+        val request = new dom.RequestInit {
+          method = HttpMethod.DELETE
+          headers = js.Dictionary(
+            "Authorization" -> s"Bearer $token"
+          )
+        }
+
+        val racePromise = Promise.race(js.Array(dom.fetch(url, request), timeoutPromise(delay))).toFuture
+
+        racePromise.flatMap { response =>
+          if (!response.ok) throw new Exception(s"${response.status}")
+          response.text().toFuture
+        }.map {responseBody =>
+          Right(upickle.default.read[List[Product]](responseBody))//: List[Product])
+        }.recover { case error: Throwable =>
+            Left(s"delete from Favorites error: ${error.getMessage}")//: Either[String, List[Product]]
+        }
+      case None =>
+        Future.successful(Left("User is not authenticated"))
+    }
+  }
+
+  // fetch Favorites By UserId
+  def fetchUsersFavorites(): Future[Either[String, List[Product]]] = {
+    val url: RequestInfo = s"$baseUrl/favorites"
+    val delay: FiniteDuration = 10000.millis
+    def tokenOpt = currentUserVar.now().map(_.token)
+
+    tokenOpt match {
+      case Some(token) =>
+        val request = new dom.RequestInit {
+          method = HttpMethod.GET
+          headers = js.Dictionary(
+            "Authorization" -> s"Bearer $token"
+          )
+        }
+        //println(s"HTTPclient. START racePromise")
+        val racePromise = Promise.race(js.Array(dom.fetch(url, request), timeoutPromise(delay))).toFuture
+
+        racePromise.flatMap { response =>
+          if (!response.ok) {
+            //println("HTTPclient. RESPONCSE DONT OK")
+            throw new Exception(s"${response.status}")
+          }
+          response.text().toFuture
+        }.map {responseBody =>
+         // println(s"HTTPclient. BODY: $responseBody")
+          Right(upickle.default.read[List[Product]](responseBody))//: List[Product])
+        }.recover { case error: Throwable =>
+            Left(s"fetch Favorites By UserId. error: ${error.getMessage}")//: Either[String, List[Product]]
+        }
+      case None =>
+        Future.successful(Left("User is not authenticated"))
+    }
+  }
 
 end HttpClient

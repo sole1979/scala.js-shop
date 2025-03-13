@@ -16,6 +16,7 @@ object Product {
     .bimap[BigDecimal](_.toString, s => BigDecimal(s))
 
   implicit val rw: ReadWriter[Product] = macroRW
+ // implicit val listRW: ReadWriter[List[Product]] = macroRW
 }
 
 val productVar: Var[Option[Product]] = Var(None) // None, пока данные не загружены
@@ -43,3 +44,8 @@ object CartProduct {
   implicit val rw: ReadWriter[CartProduct] = macroRW
 }
 
+
+case class  FavoriteRequest(productSku: String)
+object FavoriteRequest {
+  implicit val rw: ReadWriter[FavoriteRequest] = macroRW
+}

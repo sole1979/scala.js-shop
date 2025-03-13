@@ -26,7 +26,8 @@ def renderCategoryPage(category: String): HtmlElement =
   HttpClient.fetchCategoryProducts(category)
 
   div(
-    h2("Category Now!!!"),
+    //h2("Category Now!!!"),
+    br(),
     h2(s"Category $category Page"),
     a(
       href := router.absoluteUrlForPage(PageHome),
@@ -62,27 +63,27 @@ def renderCategoryPage(category: String): HtmlElement =
             height := "auto",
             borderRadius := "10px"
           ),
-          h3(
+          div(
             product.name,
-            fontSize := "24px",
+            fontSize := "20px",
             fontWeight.bold,
             textAlign.left
           ),
-          p(
+         /* p(
             s"Articul: ${product.sku}",
             fontSize := "10px",
             color := "green",
             textAlign.left
-          ),
+          ),  */
           p(s"Price: ${product.price}",
             textAlign.left
-          ),
+          ) /*,
           p(
             s"About: ${product.descr}",
             fontSize := "12px",
             color := "red",
             textAlign.left
-          )
+          )    */
         )
       }
     }

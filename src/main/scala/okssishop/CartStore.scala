@@ -8,11 +8,6 @@ import com.raquo.laminar.api.L.{*, given}
 import org.scalajs.dom
 import org.scalajs.dom.window
 
-
-//import scala.concurrent.ExecutionContext.Implicits.global
-//import scala.concurrent.Future
-
-
 object CartStore {
 
   import org.scalajs.dom
@@ -20,9 +15,7 @@ object CartStore {
 
 
   val cartVar: Var[List[CartProduct]] = Var(loadCart())
-  //val cartVar: Var[List[CartProduct]] = Var(List.empty)
-
-  // load cart from localstorage
+ 
   private def loadCart(): List[CartProduct] = {
     Option(window.localStorage.getItem("cart"))
       .filter(_.nonEmpty)   // sequence is not empty
@@ -30,12 +23,6 @@ object CartStore {
       .getOrElse(Nil)  // if data is missing, return empty List
     }
 
-  // save cart to localStorage
- // private def saveCart(): Unit = {
- //   localStorage.setItem("cart", upickle.default.write(cartVar.now()))
- // }
-
-  //auto refresh cart for change
   cartVar.signal.foreach { cart =>
     window.localStorage.setItem("cart", upickle.default.write(cart))
     }(unsafeWindowOwner)

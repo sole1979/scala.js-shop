@@ -15,10 +15,13 @@ import upickle.default.{ReadWriter => RW, macroRW}
 sealed trait Page derives ReadWriter  //for ver 4.0
 
 case object PageHome extends Page
+case object PageFavorites extends Page
 case class PageCategory(category: String) extends Page
 case class PageItem(category: String, itemCode: String) extends Page
 
 val homeRoute = Route.static(PageHome, root / endOfSegments)
+
+val favoritesRoute = Route.static(PageFavorites, root / "favorites" / endOfSegments)
 
 val categoryRoute = Route[PageCategory, String](
   encode = pageCategory => pageCategory.category,
@@ -33,9 +36,10 @@ val itemRoute = Route[PageItem, (String, String)](
 )
 
 val router = new Router[Page](
-  routes = List(homeRoute, categoryRoute, itemRoute),
+  routes = List(homeRoute, favoritesRoute, categoryRoute, itemRoute),
   getPageTitle = {
     case PageHome     => "Okssi Home"
+    case PageFavorites => "Okssi Favorites"
     case PageCategory(arg) => s"OkSSi $arg"
     case PageItem(cat, code) => s"OkSSi $cat $code"
   },
